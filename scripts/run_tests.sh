@@ -13,5 +13,5 @@ if [[ $test_target != "" ]]
 then
   pytest -vv $1
 else
-  pytest tests/*
+  pytest
 fi

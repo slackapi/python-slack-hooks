@@ -11,5 +11,5 @@ then
     pytest $1
 else
     pytest && \
-    pytype slack_cli_hooks/
+      pytype slack_cli_hooks/
 fi
