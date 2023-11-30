@@ -11,7 +11,6 @@ SLACK_APP_PATH = "SLACK_APP_PATH"
 
 
 class TestStart:
-
     working_directory = "tests/slack_bolt/cli/test_app"
 
     def setup_method(self):

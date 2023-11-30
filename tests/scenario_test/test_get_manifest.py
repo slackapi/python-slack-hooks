@@ -14,7 +14,7 @@ class TestGetManifest:
         os.chdir(self.cwd)
 
     def test_get_manifest_script(self, capsys):
-        working_directory = "tests/scenario_tests/cli/test_app"
+        working_directory = "tests/scenario_test/test_app"
         os.chdir(working_directory)
 
         runpy.run_module(get_manifest.__name__, run_name="__main__")
@@ -24,7 +24,7 @@ class TestGetManifest:
         assert {"_metadata": {}, "display_information": {"name": "Bolt app"}} == json.loads(out)
 
     def test_get_manifest_script_no_manifest(self):
-        working_directory = "tests/scenario_tests/cli/test_app_no_manifest"
+        working_directory = "tests/scenario_test/test_app_no_manifest"
         os.chdir(working_directory)
 
         with pytest.raises(CliError) as e:
