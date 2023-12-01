@@ -108,7 +108,7 @@ If you want to test the package locally you can.
 
 #### test.pypi.org deployment
 
-You can deploy this package to <https://test.pypi.org/> in order to try out packaging and deploy related changes
+It is possible to deploy this project on <https://test.pypi.org/> in order to try out packaging and deploy related changes
 
 ```zsh
 ./scripts/deploy_to_test_pypi.sh
@@ -152,7 +152,7 @@ You can deploy this package to <https://test.pypi.org/> in order to try out pack
    - Use the latest stable Python runtime
    - `python -m venv .venv`
    - `./scripts/deploy_to_pypi_org.sh`
-   - Create a GitHub release - <https://github.com/slackapi/bolt-python/releases>
+   - Create a GitHub release - <https://github.com/slackapi/python-slack-hooks/releases>
 
    ```markdown
    ## New Features
