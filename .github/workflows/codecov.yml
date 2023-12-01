@@ -26,8 +26,9 @@ jobs:
       - name: Run all tests for codecov
         run: |
           pytest --cov=./slack_cli_hooks/ --cov-report=xml
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
-          verbose: true
+      # TODO uncomment when repo public
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     fail_ci_if_error: true
+      #     verbose: true
