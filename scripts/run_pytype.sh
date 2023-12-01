@@ -1,5 +1,4 @@
 #!/bin/bash
-# ./scripts/run_pytype.sh
 
 source ./scripts/_utils.sh
 

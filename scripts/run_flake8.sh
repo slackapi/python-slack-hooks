@@ -1,5 +1,4 @@
 #!/bin/bash
-# ./scripts/run_flake8.sh
 
 source ./scripts/_utils.sh
 

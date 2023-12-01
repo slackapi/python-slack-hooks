@@ -1,5 +1,4 @@
 #!/bin/bash
-# Run all the tests or a single test
 # all: ./scripts/run_tests.sh
 # single: ./scripts/run_tests.sh tests/scenario_tests/test_app.py
 

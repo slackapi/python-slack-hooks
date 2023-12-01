@@ -1,4 +1,4 @@
-# Run all the tests or a single test
+#!/bin/bash
 source ./scripts/_utils.sh
 
 set_prj_as_cwd
