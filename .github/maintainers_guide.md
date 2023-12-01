@@ -75,7 +75,7 @@ To format this project
 To lint this project
 
 ```zsh
-./scripts/run_flake8.sh
+./scripts/lint.sh
 ```
 
 This project uses [pytype](https://google.github.io/pytype/) to check and infers types for your Python code.
