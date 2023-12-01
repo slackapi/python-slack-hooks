@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "pytest-runner", "wheel"]
+requires = ["setuptools", "pytest-runner"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -41,9 +41,6 @@ include = ["slack_cli_hooks*"]
 version = { attr = "slack_cli_hooks.version.__version__" }
 readme = { file = ["README.md"], content-type = "text/markdown" }
 dependencies = { file = ["requirements.txt"] }
-
-[tool.distutils.bdist_wheel]
-universal = true
 
 [tool.black]
 line-length = 125

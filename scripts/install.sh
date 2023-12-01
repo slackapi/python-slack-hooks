@@ -1,16 +1,6 @@
-#!/bin/bash
+# Run all the tests or a single test
+source ./scripts/_utils.sh
 
-sh scripts/setup.sh
+set_prj_as_cwd
 
-test_target="$1"
-python_version=`python --version | awk '{print $2}'`
-
-if [ ${python_version:0:3} == "3.6" ]
-then
-  pip install -r requirements.txt
-else
-  pip install -e .
-fi
-
-pip install -r requirements/testing.txt
-pip install -r requirements/format.txt
+install_development_requirements

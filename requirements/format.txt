@@ -2,5 +2,5 @@ black==22.8.0; python_version=="3.6"
 black; python_version>"3.6"            # Until we drop Python 3.6 support, we have to stay with this version
 flake8>=5.0.4; python_version=="3.6"
 flake8==6.0.0; python_version>"3.6"
-pytype==2022.12.15; python_version=="3.9"
-pytype; python_version<"3.9" and python_version>'3.9'
+pytype; (python_version<"3.12" or python_version>"3.12")
+pytype==2023.11.29; python_version=="3.12"

@@ -1,8 +1,9 @@
 #!/bin/bash
 
-sh scripts/_setup.sh
+source ./scripts/_utils.sh
 
-pip install -r requirements/build.txt && \
-  rm -rf dist/ build/ slack_cli_hooks.egg-info/ && \
-  python -m build --sdist --wheel && \
-  twine check dist/*
+set_prj_as_cwd
+
+clean_project
+
+build

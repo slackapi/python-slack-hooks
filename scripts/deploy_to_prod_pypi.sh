@@ -1,5 +1,11 @@
 #!/bin/bash
 
-sh scripts/build_pypi_package.sh
+source ./scripts/_utils.sh
+
+set_prj_as_cwd
+
+clean_project
+
+build
 
 twine upload dist/*

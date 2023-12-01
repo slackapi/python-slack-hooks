@@ -1,7 +1,5 @@
 # Maintainers Guide
 
-<!-- TODO review this file -->
-
 This document describes tools, tasks and workflow that one needs to be familiar with in order to effectively maintain
 this project. If you use this package within your own software as is but don't plan on modifying it, this guide is
 **not** for you.
@@ -17,21 +15,21 @@ brew update
 brew install pyenv
 ```
 
-Install necessary Python runtimes for development/testing. You can rely on GitHub Action for testing with various major versions.
+Install necessary Python runtimes for development/testing. You can rely on GitHub Actions for testing with various major versions.
 
 ```zsh
-$ pyenv install -l | grep -v "-e[conda|stackless|pypy]"
+pyenv install -l | grep -v "-e[conda|stackless|pypy]"
 
-$ pyenv install 3.8.5 # select the latest patch version
-$ pyenv local 3.8.5
+pyenv install 3.8.5 # select the latest patch version
+pyenv local 3.8.5
 
-$ pyenv versions
+pyenv versions
   system
   3.6.10
   3.7.7
 * 3.8.5 (set by /path-to-python-slack-hooks/.python-version)
 
-$ pyenv rehash
+pyenv rehash
 ```
 
 Then, you can create a new Virtual Environment this way:
@@ -47,24 +45,43 @@ source env_3.8.5/bin/activate
 
 #### Run All the Unit Tests
 
-If you make some changes to this project, please write corresponding unit tests as much as possible. You can easily run all the tests by running the following script.
+If you make some changes to this project, please write corresponding unit tests as much as possible. You can easily run all the tests by running the following scripts.
 
-If this is your first time to run tests, although it may take a bit long time, running the following script is the easiest.
+If this is your first time to run tests, although it may take a bit longer, running the following script is the easiest.
 
 ```zsh
-./scripts/install_all_and_run_tests.sh
+./scripts/install_and_run_tests.sh
 ```
 
-Once you installed all the required dependencies, you can use the following one.
+To simply install all the development dependencies for this project.
+
+```zsh
+./scripts/install.sh
+```
+
+Once you installed all the required dependencies, you can use the following.
 
 ```zsh
 ./scripts/run_tests.sh
+./scripts/run_tests.sh tests/scenario_test/test_get_hooks.py
 ```
 
-Also, you can run a single test this way.
+To format this project
 
 ```zsh
-./scripts/run_tests.sh tests/scenario_test/test_get_hooks.py
+./scripts/format.sh
+```
+
+To lint this project
+
+```zsh
+./scripts/run_flake8.sh
+```
+
+This project uses [pytype](https://google.github.io/pytype/) to check and infers types for your Python code.
+
+```zsh
+./scripts/run_pytype.sh
 ```
 
 #### Develop Locally
@@ -80,35 +97,27 @@ If you want to test the package locally you can.
 
    - This will create a `.whl` file in the `./dist` folder
 2. Use the built package
-   - Example `/dist/slack_bolt-1.2.3-py2.py3-none-any.whl` was created
+   - Example `/dist/slack_cli_hooks-1.2.3-py2.py3-none-any.whl` was created
    - From anywhere on your machine you can install this package to a project with
 
      ```zsh
-     pip install <project path>/dist/slack_bolt-1.2.3-py2.py3-none-any.whl
+     pip install <project path>/dist/slack_cli_hooks-1.2.3-py2.py3-none-any.whl
      ```
-
-   - It is also possible to include `<project path>/dist/slack_bolt-1.2.3-py2.py3-none-any.whl` in a [requirements.txt](https://pip.pypa.io/en/stable/user_guide/#requirements-files) file
 
 ### Releasing
 
 #### test.pypi.org deployment
 
+You can deploy this package to <https://test.pypi.org/> in order to try out packaging and deploy related changes
+
 ```zsh
 ./scripts/deploy_to_test_pypi.sh
-```
-
-##### $HOME/.pypirc
-
-```txt
-[testpypi]
-username: {your username}
-password: {your password}
 ```
 
 #### Development Deployment
 
 1. Create a branch in which the development release will live:
-    - Bump the version number in adherence to [Semantic Versioning](http://semver.org/) and [Developmental Release](https://peps.python.org/pep-0440/#developmental-releases) in `slack_bolt/version.py`
+    - Bump the version number in adherence to [Semantic Versioning](http://semver.org/) and [Developmental Release](https://peps.python.org/pep-0440/#developmental-releases) in `slack_cli_hooks/version.py`
       - Example the current version is `1.2.3` a proper development bump would be `1.3.0.dev0`
       - `.dev` will indicate to pip that this is a [Development Release](https://peps.python.org/pep-0440/#developmental-releases)
       - Note that the `dev` version can be bumped in development releases: `1.3.0.dev0` -> `1.3.0.dev1`
@@ -122,7 +131,7 @@ password: {your password}
 2. Distribute the release
    - Use the latest stable Python runtime
    - `python -m venv .venv`
-   - `./scripts/deploy_to_pypi_org.sh`
+   - `./scripts/deploy_to_prod_pypi.sh`
    - You do not need to create a GitHub release
 
 3. (Slack Internal) Communicate the release internally
@@ -130,7 +139,7 @@ password: {your password}
 #### Production Deployment
 
 1. Create the commit for the release:
-   - Bump the version number in adherence to [Semantic Versioning](http://semver.org/) in `slack_bolt/version.py`
+   - Bump the version number in adherence to [Semantic Versioning](http://semver.org/) in `slack_cli_hooks/version.py`
    - Commit with a message including the new version number. For example `1.2.3` & Push the commit to a branch and create a PR to sanity check.
      - `git checkout -b v1.2.3-release`
      - `git commit -m 'version 1.2.3'`
@@ -165,10 +174,7 @@ password: {your password}
 3. (Slack Internal) Communicate the release internally
    - Include a link to the GitHub release
 
-4. Make announcements
-   - #tools-bolt in community.slack.com
-
-5. (Slack Internal) Tweet by @SlackAPI
+4. (Slack Internal) Tweet by @SlackAPI
    - Not necessary for patch updates, might be needed for minor updates, definitely needed for major updates. Include a link to the GitHub release
 
 ## Workflow

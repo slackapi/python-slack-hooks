@@ -4,10 +4,11 @@
 # single: ./scripts/run_tests.sh tests/scenario_tests/test_app.py
 
 test_target="$1"
-python_version=`python --version | awk '{print $2}'`
+source ./scripts/_utils.sh
 
-sh scripts/setup.sh
-black slack_cli_hooks/ tests/
+set_prj_as_cwd
+
+format
 
 if [[ $test_target != "" ]]
 then

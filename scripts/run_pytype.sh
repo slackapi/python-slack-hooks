@@ -1,8 +1,10 @@
 #!/bin/bash
 # ./scripts/run_pytype.sh
 
-sh scripts/install.sh
+source ./scripts/_utils.sh
 
-pip install -r requirements/format.txt
+set_prj_as_cwd
+
+install_development_requirements
 
 pytype slack_cli_hooks/

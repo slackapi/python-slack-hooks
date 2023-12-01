@@ -12,13 +12,9 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
-    env:
-      # default: multiprocessing
-      # threading is more stable on GitHub Actions
-      BOLT_PYTHON_MOCK_SERVER_MODE: threading
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -26,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -U pip
-          python install .
+          pip install .
           pip install -r requirements/testing.txt
       - name: Run tests
         run: |
