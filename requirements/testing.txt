@@ -1,0 +1,3 @@
+# pip install -r requirements/testing.txt
+pytest>=6.2.5,<7
+pytest-cov>=3,<4

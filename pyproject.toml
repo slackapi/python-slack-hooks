@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools", "pytest-runner"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "slack_cli_hooks"
+dynamic = ["version", "readme", "dependencies"]
+description = "The Slack CLI contract implementation for Bolt Python"
+license = { text = "MIT" }
+authors = [{ name = "Slack Technologies, LLC", email = "opensource@slack.com" }]
+requires-python = ">=3.6"
+classifiers = [
+	"Development Status :: 2 - Pre-Alpha",
+	"Environment :: Console",
+	"Intended Audience :: Developers",
+	"Topic :: Office/Business",
+	"Topic :: Software Development",
+	"License :: OSI Approved :: MIT License",
+	"Programming Language :: Python",
+	"Programming Language :: Python :: 3 :: Only",
+	"Programming Language :: Python :: 3.6",
+	"Programming Language :: Python :: 3.7",
+	"Programming Language :: Python :: 3.8",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+	"Programming Language :: Python :: Implementation :: CPython",
+	"Programming Language :: Python :: Implementation :: PyPy",
+]
+
+
+[project.urls]
+"Source Code" = "https://github.com/slackapi/python-slack-hooks"
+
+
+[tool.setuptools.packages.find]
+include = ["slack_cli_hooks*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "slack_cli_hooks.version.__version__" }
+readme = { file = ["README.md"], content-type = "text/markdown" }
+dependencies = { file = ["requirements.txt"] }
+
+[tool.black]
+line-length = 125
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+log_file = "logs/pytest.log"
+log_file_level = "DEBUG"
+log_format = "%(asctime)s %(levelname)s %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
