@@ -25,9 +25,9 @@ install_development_requirements() {
 }
 
 build() {
-  pip install -r requirements/build.txt && \
-    python -m build && \
-    twine check dist/*
+	pip install -r requirements/build.txt && \
+	python -m build && \
+	twine check dist/*
 }
 
 format() {
