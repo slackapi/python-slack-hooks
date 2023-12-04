@@ -9,7 +9,7 @@ jobs:
   build:
     # Avoiding -latest due to https://github.com/actions/setup-python/issues/162
     runs-on: ubuntu-20.04
-    timeout-minutes: 10
+    timeout-minutes: 5
     strategy:
       matrix:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
