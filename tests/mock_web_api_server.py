@@ -43,7 +43,7 @@ class MockHandler(SimpleHTTPRequestHandler):
             "authed_user": {"id": "U1234", "scope": "chat:write", "access_token": "xoxp-1234", "token_type": "user"},
         }
     )
-    oauth_v2_access_bot_refresh_response = json.dump(
+    oauth_v2_access_bot_refresh_response = json.dumps(
         {
             "ok": True,
             "app_id": "A0KRD7HC3",

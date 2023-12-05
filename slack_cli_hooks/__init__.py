@@ -5,10 +5,3 @@ A Slack CLI hooks implementation in Python to build Bolt Slack apps leveraging t
 * Bolt Website: https://slack.dev/bolt-python/
 * GitHub repository: https://github.com/slackapi/python-slack-hooks
 """  # noqa: E501
-from .hooks import get_hooks, get_manifest, start
-
-__all__ = [
-    "get_hooks",
-    "get_manifest",
-    "start",
-]
