@@ -1,4 +1,6 @@
 # pip install -r requirements/testing.txt
 pytest>=6.2.5,<7
 pytest-cov>=3,<4
-Flask-Sockets>=0.2,<1     # TODO: This module is not yet Flask 2.x compatible
+Flask>=2.0.3,<4 
+gevent>=22.10.2,<24
+gevent-websocket>=0.10.1,<1
