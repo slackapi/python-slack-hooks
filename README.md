@@ -10,7 +10,7 @@ Before getting started, make sure you have a development workspace where you hav
 
 Install the Slack CLI. Step-by-step instructions can be found in this [Quickstart Guide](https://api.slack.com/automation/cli).
 
-### Install the package
+### Install this package
 
 ```bash
 # Python 3.6+ required
