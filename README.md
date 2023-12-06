@@ -45,7 +45,7 @@ if __name__ == "__main__":
     SocketModeHandler(app.start(3000)).start()
 ```
 
-### CLI Config
+### Application Configuration
 
 Define the manifest in a `manifest.json` file.
 
