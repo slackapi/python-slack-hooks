@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
 ### Application Configuration
 
-Define the manifest in a `manifest.json` file.
+Define your [Application Manifest](https://api.slack.com/reference/manifests) in a `manifest.json` file.
 
 ```json
 {
