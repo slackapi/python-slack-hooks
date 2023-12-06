@@ -23,7 +23,7 @@ pip install slack-cli-hooks
 
 ## Creating a Bolt app
 
-All in the same working directory
+Next, we will create a Bolt for Python app in the same directory where we installed `slack-cli-hooks`, define basic information and metadata about our app via an [App Manifest](https://api.slack.com/reference/manifests) (`manifest.json`) and finally create a `slack.json` file that defines the interface between the [Slack CLI](https://api.slack.com/automation/cli) and [Bolt for Python](https://slack.dev/bolt-python/concepts).
 
 ### Source code
 
