@@ -1,6 +1,6 @@
 # python-slack-hooks
 
-Helper library implementing the contract between the Slack CLI and [Bolt for Python](https://api.slack.com/automation/cli)
+Helper library implementing the contract between the [Slack CLI](https://api.slack.com/automation/cli) and [Bolt for Python](https://slack.dev/bolt-python/)
 
 ## Setup
 
