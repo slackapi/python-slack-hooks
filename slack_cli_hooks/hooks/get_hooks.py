@@ -12,7 +12,7 @@ hooks_payload = {
         "start": f"{EXEC} -m slack_cli_hooks.hooks.start",
     },
     "config": {
-        "watcher": {"filter-regex": "^manifest\\.(json)$", "paths": ["."]},
+        "watch": {"filter-regex": "(^manifest\.json$)", "paths": ["."]},
         "protocol-version": [MessageBoundaryProtocol.name, DefaultProtocol.name],
         "sdk-managed-connection-enabled": True,
     },

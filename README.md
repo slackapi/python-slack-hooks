@@ -4,7 +4,7 @@ Helper library implementing the contract between the [Slack CLI](https://api.sla
 
 ## Setup
 
-Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one set up, go ahead and create one.
+Before getting started, make sure you have a development workspace where you have permissions to install apps. **Please note that leveraging all features in this project require that the workspace be part of [a Slack paid plan](https://slack.com/pricing).**
 
 ### Install the Slack CLI
 
