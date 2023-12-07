@@ -77,7 +77,9 @@ Define your [Application Manifest](https://api.slack.com/reference/manifests) in
   }
 }
 ```
+
 ### CLI/Bolt Interface Configuration
+
 Define the Slack CLI configuration in a file named `slack.json`.
 
 ```json
@@ -87,8 +89,6 @@ Define the Slack CLI configuration in a file named `slack.json`.
   }
 }
 ```
-
-Create an empty folder named `.slack`
 
 ### Running the app
 
