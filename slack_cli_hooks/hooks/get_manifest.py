@@ -4,7 +4,7 @@ import re
 from typing import List
 
 from slack_cli_hooks.error import CliError
-from slack_cli_hooks.protocol import Protocol, protocol_factory
+from slack_cli_hooks.protocol import Protocol, build_protocol
 
 PROTOCOL: Protocol
 
@@ -46,5 +46,5 @@ def get_manifest(working_directory: str) -> str:
 
 
 if __name__ == "__main__":
-    PROTOCOL = protocol_factory()
+    PROTOCOL = build_protocol()
     PROTOCOL.respond(get_manifest(os.getcwd()))

@@ -4,7 +4,7 @@ import runpy
 import sys
 
 from slack_cli_hooks.error import CliError
-from slack_cli_hooks.protocol import Protocol, protocol_factory
+from slack_cli_hooks.protocol import Protocol, build_protocol
 
 PROTOCOL: Protocol
 
@@ -76,5 +76,5 @@ def start(working_directory: str) -> None:
 
 
 if __name__ == "__main__":
-    PROTOCOL = protocol_factory()
+    PROTOCOL = build_protocol()
     start(os.getcwd())

@@ -12,7 +12,7 @@ __all__ = [
 ]
 
 
-def protocol_factory(argv: List[str] = sys.argv[1:]) -> Protocol:
+def build_protocol(argv: List[str] = sys.argv[1:]) -> Protocol:
     parser = argparse.ArgumentParser()
     parser.add_argument("--protocol", type=str, required=False)
     parser.add_argument("--boundary", type=str, required=False)
