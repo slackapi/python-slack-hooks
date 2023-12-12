@@ -102,7 +102,7 @@ Define the Slack CLI configuration in a file named `slack.json`.
 ```json
 {
   "hooks": {
-    "get-hooks": "python3 -X dev -m slack_cli_hooks.hooks.get_hooks"
+    "get-hooks": "python3 -m slack_cli_hooks.hooks.get_hooks"
   }
 }
 ```

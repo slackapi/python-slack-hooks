@@ -9,7 +9,7 @@ EXEC = "python3"
 hooks_payload = {
     "hooks": {
         "get-manifest": f"{EXEC} -m slack_cli_hooks.hooks.get_manifest",
-        "start": f"{EXEC} -m slack_cli_hooks.hooks.start",
+        "start": f"{EXEC} -X dev -m slack_cli_hooks.hooks.start",
     },
     "config": {
         "watch": {"filter-regex": "(^manifest\\.json$)", "paths": ["."]},
