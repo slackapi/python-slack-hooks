@@ -80,7 +80,6 @@ a `manifest.json` file.
   "settings": {
     "org_deploy_enabled": true,
     "socket_mode_enabled": true,
-    "token_rotation_enabled": false
   },
   "features": {
     "bot_user": {
