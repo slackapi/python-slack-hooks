@@ -7,7 +7,7 @@ TEST_VAR = "TEST"
 TEST_VAR2 = "TEST2"
 
 
-class TestEnvVarHandler:
+class TestManagedOSEnvVars:
     def setup_method(self):
         self.old_os_env = remove_os_env_temporarily()
 
