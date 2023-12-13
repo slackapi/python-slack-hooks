@@ -10,7 +10,7 @@ class ManagedOSEnvVars:
 
     def set_if_absent(self, os_env_var: str, value: str) -> None:
         if os_env_var in os.environ:
-            self._protocol.warning(
+            self._protocol.info(
                 f"{os_env_var} environment variable detected in session, using it over the provided one!"
             )
             return
