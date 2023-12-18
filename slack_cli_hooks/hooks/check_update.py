@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import json
-from urllib.request import urlopen, Request
+from urllib import request
 
 from slack_cli_hooks.protocol import Protocol, build_protocol
 from http.client import HTTPResponse, HTTPMessage
@@ -18,10 +18,10 @@ class PypiResponse:
 def get_pypi_response(project: str) -> PypiResponse:
     # Based on https://warehouse.pypa.io/api-reference/json.html
     url = f"https://pypi.org/pypi/{project}/json"
-    request = Request(method="GET", url=url, headers={"Accept": "application/json"})
-    response: HTTPResponse = urlopen(request)
+    pypi_request = request.Request(method="GET", url=url, headers={"Accept": "application/json"})
+    response: HTTPResponse = request.urlopen(pypi_request)
     charset = response.headers.get_content_charset() or "utf-8"
-    return PypiResponse(status=response.getcode, headers=response.headers, body=response.read().decode(charset))
+    return PypiResponse(status=response.getcode(), headers=response.headers, body=response.read().decode(charset))
 
 
 example_output = {
