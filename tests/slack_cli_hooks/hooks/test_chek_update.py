@@ -5,7 +5,7 @@ from unittest import mock
 import pytest
 from slack_cli_hooks.error import CliError
 
-from slack_cli_hooks.hooks.check_update import PypiResponse, extract_latest_version, get_pypi_response, get_pypi_json
+from slack_cli_hooks.hooks.check_update import PypiResponse, extract_latest_version, get_pypi_response, get_pypi_json_payload
 
 
 def resolve_module(func) -> str:
@@ -43,7 +43,7 @@ class TestGetManifest:
 
         with mock.patch(resolve_module(get_pypi_response)) as mock_get_pypi_response:
             mock_get_pypi_response.return_value = mock_response
-            json_response = get_pypi_json(project)
+            json_response = get_pypi_json_payload(project)
 
         assert json_response == {"info": {}, "releases": {}}
 
@@ -62,7 +62,7 @@ class TestGetManifest:
         with mock.patch(resolve_module(get_pypi_response)) as mock_get_pypi_response:
             mock_get_pypi_response.return_value = mock_response
             with pytest.raises(CliError) as e:
-                get_pypi_json(project)
+                get_pypi_json_payload(project)
 
             assert "300" in str(e)
             assert "https://pypi.org/pypi/{project}/json" in str(e)

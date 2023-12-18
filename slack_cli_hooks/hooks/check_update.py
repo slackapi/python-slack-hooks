@@ -1,13 +1,20 @@
 #!/usr/bin/env python
 import json
-from typing import Any, Dict
+from types import ModuleType
+from typing import Any, Dict, List
 from urllib import request
 
 from slack_cli_hooks.protocol import Protocol, build_protocol
 from slack_cli_hooks.error import CliError
 from http.client import HTTPResponse, HTTPMessage
+import slack_bolt
+import slack_sdk
+import slack_cli_hooks.version
+from packaging.version import parse
 
 PROTOCOL: Protocol = build_protocol()
+
+DEPENDENCIES: List[ModuleType] = [slack_cli_hooks, slack_bolt, slack_sdk]
 
 
 class PypiResponse:
@@ -29,7 +36,7 @@ def get_pypi_response(project: str) -> PypiResponse:
     )
 
 
-def get_pypi_json(project: str) -> Dict[str, Any]:
+def get_pypi_json_payload(project: str) -> Dict[str, Any]:
     pypi_response = get_pypi_response(project)
     if pypi_response.status > 200:
         PROTOCOL.debug(f"Received status {pypi_response.status} from {pypi_response.url}")
@@ -39,7 +46,7 @@ def get_pypi_json(project: str) -> Dict[str, Any]:
     return json.loads(pypi_response.body)
 
 
-def extract_latest_version(payload: Dict[str, Any]) -> int:
+def extract_latest_version(payload: Dict[str, Any]) -> str:
     if "info" not in payload:
         raise CliError("Missing `info` field in pypi payload")
     if "version" not in payload["info"]:
@@ -47,26 +54,31 @@ def extract_latest_version(payload: Dict[str, Any]) -> int:
     return payload["info"]["version"]
 
 
-example_output = {
-    "name": "Slack Bolt",
-    "message": "",
-    "releases": [
-        {
-            "name": "deno_slack_hooks",
-            "current": "1.2.2",
-            "latest": "1.2.3",
-            "update": True,
-            "breaking": False,
-            "error": None,
-        },
-        {"name": "deno_slack_sdk", "current": "2.5.0", "latest": "2.5.0", "update": False, "breaking": False, "error": None},
-        {"name": "deno_slack_api", "current": "2.1.2", "latest": "2.1.2", "update": False, "breaking": False, "error": None},
-    ],
-    "url": "https://api.slack.com/future/changelog",
-    "error": None,
-}
+def build_release(dependency: ModuleType):
+    name = dependency.__name__
+    pypi_json_payload = get_pypi_json_payload(name)
+    latest_version = parse(extract_latest_version(pypi_json_payload))
+    current_version = parse(dependency.version.__version__)
+    return {
+        "name": dependency.__name__,
+        "current": current_version.base_version,
+        "latest": latest_version.base_version,
+        "update": current_version < latest_version,
+        "breaking": (latest_version.major - current_version.major) != 0,
+        "error": None,
+    }
+
+
+def build_check_update() -> Dict[str, Any]:
+    releases = [build_release(dep) for dep in DEPENDENCIES]
+    return {
+        "name": "Slack Bolt",
+        "message": "",
+        "url": "https://api.slack.com/future/changelog",
+        "releases": releases,
+        "error": None,
+    }
 
 
 if __name__ == "__main__":
-    resp = get_pypi_response("slack-bolt")
-    PROTOCOL.respond(json.dumps({"status": resp.status, "headers": resp.headers, "body": json.loads(resp.body)}))
+    PROTOCOL.respond(json.dumps(build_check_update()))
