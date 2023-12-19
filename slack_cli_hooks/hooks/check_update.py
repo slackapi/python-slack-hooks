@@ -54,7 +54,7 @@ def extract_latest_version(payload: Dict[str, Any]) -> str:
     return payload["info"]["version"]
 
 
-def build_release(dependency: ModuleType):
+def build_release(dependency: ModuleType) -> Dict[str, Any]:
     name = dependency.__name__
     pypi_json_payload = pypi_get_json(name)
     latest_version = parse_version(extract_latest_version(pypi_json_payload))
