@@ -6,7 +6,14 @@ import pytest
 from slack_cli_hooks.error import PypiError
 
 from slack_cli_hooks.hooks import check_update
-from slack_cli_hooks.hooks.check_update import PypiResponse, build_release, extract_latest_version, pypi_get, pypi_get_json
+from slack_cli_hooks.hooks.check_update import (
+    PypiResponse,
+    build_output,
+    build_release,
+    extract_latest_version,
+    pypi_get,
+    pypi_get_json,
+)
 
 
 class TestGetManifest:
@@ -97,5 +104,16 @@ class TestGetManifest:
             "latest": "0.0.1",
             "update": True,
             "breaking": False,
+            "error": None,
+        }
+
+    def test_build_output(self):
+        actual = build_output([])
+
+        assert actual == {
+            "name": "Slack Bolt",
+            "message": "",
+            "url": "https://api.slack.com/future/changelog",
+            "releases": [],
             "error": None,
         }

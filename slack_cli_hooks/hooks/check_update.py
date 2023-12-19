@@ -69,8 +69,8 @@ def build_release(dependency: ModuleType):
     }
 
 
-def build_check_update() -> Dict[str, Any]:
-    releases = [build_release(dep) for dep in DEPENDENCIES]
+def build_output(dependencies=DEPENDENCIES) -> Dict[str, Any]:
+    releases = [build_release(dep) for dep in dependencies]
     return {
         "name": "Slack Bolt",
         "message": "",
@@ -81,4 +81,4 @@ def build_check_update() -> Dict[str, Any]:
 
 
 if __name__ == "__main__":
-    PROTOCOL.respond(json.dumps(build_check_update()))
+    PROTOCOL.respond(json.dumps(build_output()))
