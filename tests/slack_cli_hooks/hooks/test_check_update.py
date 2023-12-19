@@ -1,15 +1,12 @@
 from http.client import HTTPMessage
 import json
-from unittest import mock
+from unittest.mock import MagicMock, patch
 
 import pytest
-from slack_cli_hooks.error import CliError, PypiError
+from slack_cli_hooks.error import PypiError
 
-from slack_cli_hooks.hooks.check_update import PypiResponse, extract_latest_version, pypi_get, pypi_get_json
-
-
-def resolve_module(func) -> str:
-    return f"slack_cli_hooks.hooks.check_update.{func.__name__}"
+from slack_cli_hooks.hooks import check_update
+from slack_cli_hooks.hooks.check_update import PypiResponse, build_release, extract_latest_version, pypi_get, pypi_get_json
 
 
 class TestGetManifest:
@@ -17,12 +14,12 @@ class TestGetManifest:
         mock_headers = HTTPMessage()
         mock_headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
 
-        mock_resp = mock.MagicMock()
+        mock_resp = MagicMock()
         mock_resp.headers = mock_headers
-        mock_resp.getcode = mock.MagicMock(return_value=200)
-        mock_resp.read = mock.MagicMock(return_value=b"{}")
+        mock_resp.getcode = MagicMock(return_value=200)
+        mock_resp.read = MagicMock(return_value=b"{}")
 
-        with mock.patch("urllib.request.urlopen") as mock_urlopen:
+        with patch("urllib.request.urlopen") as mock_urlopen:
             mock_urlopen.return_value = mock_resp
             response = pypi_get("test")
 
@@ -41,8 +38,8 @@ class TestGetManifest:
             body=json.dumps({"info": {}, "releases": {}}),
         )
 
-        with mock.patch(resolve_module(pypi_get)) as mock_get_pypi_response:
-            mock_get_pypi_response.return_value = mock_response
+        with patch.object(check_update, pypi_get.__name__) as mock_pypi_get:
+            mock_pypi_get.return_value = mock_response
             json_response = pypi_get_json(project)
 
         assert json_response == {"info": {}, "releases": {}}
@@ -59,8 +56,8 @@ class TestGetManifest:
             body=json.dumps({"info": {}, "releases": {}}),
         )
 
-        with mock.patch(resolve_module(pypi_get)) as mock_get_pypi_response:
-            mock_get_pypi_response.return_value = mock_response
+        with patch.object(check_update, pypi_get.__name__) as mock_pypi_get:
+            mock_pypi_get.return_value = mock_response
             with pytest.raises(PypiError) as e:
                 pypi_get_json(project)
 
@@ -74,13 +71,31 @@ class TestGetManifest:
 
     def test_extract_latest_version_missing_info(self):
         test_payload = {}
-        with pytest.raises(CliError) as e:
+        with pytest.raises(PypiError) as e:
             extract_latest_version(test_payload)
             assert "info" in str(e)
 
     def test_extract_latest_version_missing_version(self):
         test_payload = {"info": {}}
-        with pytest.raises(CliError) as e:
+        with pytest.raises(PypiError) as e:
             extract_latest_version(test_payload)
             assert "version" in str(e)
             assert "payload['info']" in str(e)
+
+    def test_build_release(self):
+        test_dependency = MagicMock()
+        test_dependency.version.__version__ = "0.0.0"
+        test_dependency.__name__ = "test-dependency"
+
+        with patch.object(check_update, pypi_get_json.__name__) as mock_pypi_get_json:
+            mock_pypi_get_json.return_value = {"info": {"version": "0.0.1"}}
+            actual = build_release(test_dependency)
+
+        assert actual == {
+            "name": "test-dependency",
+            "current": "0.0.0",
+            "latest": "0.0.1",
+            "update": True,
+            "breaking": False,
+            "error": None,
+        }

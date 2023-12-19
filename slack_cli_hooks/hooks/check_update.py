@@ -10,7 +10,7 @@ import slack_sdk
 import slack_cli_hooks.version
 
 from slack_cli_hooks.protocol import Protocol, build_protocol
-from slack_cli_hooks.error import CliError, PypiError
+from slack_cli_hooks.error import PypiError
 
 PROTOCOL: Protocol = build_protocol()
 
@@ -48,9 +48,9 @@ def pypi_get_json(project: str) -> Dict[str, Any]:
 
 def extract_latest_version(payload: Dict[str, Any]) -> str:
     if "info" not in payload:
-        raise CliError("Missing `info` field in pypi payload")
+        raise PypiError("Missing `info` field in pypi payload")
     if "version" not in payload["info"]:
-        raise CliError("Missing `version` field in pypi payload['info']")
+        raise PypiError("Missing `version` field in pypi payload['info']")
     return payload["info"]["version"]
 
 
