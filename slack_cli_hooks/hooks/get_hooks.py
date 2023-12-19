@@ -10,6 +10,7 @@ hooks_payload = {
     "hooks": {
         "get-manifest": f"{EXEC} -m slack_cli_hooks.hooks.get_manifest",
         "start": f"{EXEC} -X dev -m slack_cli_hooks.hooks.start",
+        "check-update": f"{EXEC} -m slack_cli_hooks.hooks.check_update",
     },
     "config": {
         "watch": {"filter-regex": "(^manifest\\.json$)", "paths": ["."]},

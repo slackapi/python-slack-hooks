@@ -1,16 +1,16 @@
 #!/usr/bin/env python
+from http.client import HTTPMessage, HTTPResponse
 import json
 from types import ModuleType
 from typing import Any, Dict, List
 from urllib import request
-
-from slack_cli_hooks.protocol import Protocol, build_protocol
-from slack_cli_hooks.error import CliError
-from http.client import HTTPResponse, HTTPMessage
+from pkg_resources import parse_version
 import slack_bolt
 import slack_sdk
 import slack_cli_hooks.version
-from packaging.version import parse
+
+from slack_cli_hooks.protocol import Protocol, build_protocol
+from slack_cli_hooks.error import CliError, PypiError
 
 PROTOCOL: Protocol = build_protocol()
 
@@ -25,7 +25,7 @@ class PypiResponse:
         self.body = body
 
 
-def get_pypi_response(project: str) -> PypiResponse:
+def pypi_get(project: str) -> PypiResponse:
     # Based on https://warehouse.pypa.io/api-reference/json.html
     url = f"https://pypi.org/pypi/{project}/json"
     pypi_request = request.Request(method="GET", url=url, headers={"Accept": "application/json"})
@@ -36,13 +36,13 @@ def get_pypi_response(project: str) -> PypiResponse:
     )
 
 
-def get_pypi_json_payload(project: str) -> Dict[str, Any]:
-    pypi_response = get_pypi_response(project)
+def pypi_get_json(project: str) -> Dict[str, Any]:
+    pypi_response = pypi_get(project)
     if pypi_response.status > 200:
         PROTOCOL.debug(f"Received status {pypi_response.status} from {pypi_response.url}")
         PROTOCOL.debug(f"Headers {pypi_response.headers.items()}")
         PROTOCOL.debug(f"Body {pypi_response.body}")
-        raise CliError(f"Received status {pypi_response.status} from {pypi_response.url}")
+        raise PypiError(f"Received status {pypi_response.status} from {pypi_response.url}")
     return json.loads(pypi_response.body)
 
 
@@ -56,11 +56,11 @@ def extract_latest_version(payload: Dict[str, Any]) -> str:
 
 def build_release(dependency: ModuleType):
     name = dependency.__name__
-    pypi_json_payload = get_pypi_json_payload(name)
-    latest_version = parse(extract_latest_version(pypi_json_payload))
-    current_version = parse(dependency.version.__version__)
+    pypi_json_payload = pypi_get_json(name)
+    latest_version = parse_version(extract_latest_version(pypi_json_payload))
+    current_version = parse_version(dependency.version.__version__)
     return {
-        "name": dependency.__name__,
+        "name": name,
         "current": current_version.base_version,
         "latest": latest_version.base_version,
         "update": current_version < latest_version,

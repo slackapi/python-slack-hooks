@@ -3,9 +3,9 @@ import json
 from unittest import mock
 
 import pytest
-from slack_cli_hooks.error import CliError
+from slack_cli_hooks.error import CliError, PypiError
 
-from slack_cli_hooks.hooks.check_update import PypiResponse, extract_latest_version, get_pypi_response, get_pypi_json_payload
+from slack_cli_hooks.hooks.check_update import PypiResponse, extract_latest_version, pypi_get, pypi_get_json
 
 
 def resolve_module(func) -> str:
@@ -13,7 +13,7 @@ def resolve_module(func) -> str:
 
 
 class TestGetManifest:
-    def test_get_pypi_response(self):
+    def test_pypi_get(self):
         mock_headers = HTTPMessage()
         mock_headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
 
@@ -24,12 +24,12 @@ class TestGetManifest:
 
         with mock.patch("urllib.request.urlopen") as mock_urlopen:
             mock_urlopen.return_value = mock_resp
-            response = get_pypi_response("test")
+            response = pypi_get("test")
 
         assert response.status == 200
         assert response.body == "{}"
 
-    def test_get_pypi_json(self):
+    def test_pypi_get_json(self):
         project = "my_test_project"
         mock_headers = HTTPMessage()
         mock_headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
@@ -41,13 +41,13 @@ class TestGetManifest:
             body=json.dumps({"info": {}, "releases": {}}),
         )
 
-        with mock.patch(resolve_module(get_pypi_response)) as mock_get_pypi_response:
+        with mock.patch(resolve_module(pypi_get)) as mock_get_pypi_response:
             mock_get_pypi_response.return_value = mock_response
-            json_response = get_pypi_json_payload(project)
+            json_response = pypi_get_json(project)
 
         assert json_response == {"info": {}, "releases": {}}
 
-    def test_get_pypi_json_fail(self):
+    def test_pypi_get_json_fail(self):
         project = "my_test_project"
         mock_headers = HTTPMessage()
         mock_headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
@@ -59,26 +59,26 @@ class TestGetManifest:
             body=json.dumps({"info": {}, "releases": {}}),
         )
 
-        with mock.patch(resolve_module(get_pypi_response)) as mock_get_pypi_response:
+        with mock.patch(resolve_module(pypi_get)) as mock_get_pypi_response:
             mock_get_pypi_response.return_value = mock_response
-            with pytest.raises(CliError) as e:
-                get_pypi_json_payload(project)
+            with pytest.raises(PypiError) as e:
+                pypi_get_json(project)
 
             assert "300" in str(e)
             assert "https://pypi.org/pypi/{project}/json" in str(e)
 
-    def extract_latest_version(self):
+    def test_extract_latest_version(self):
         test_payload = {"info": {"version": "0.0.0"}}
         actual = extract_latest_version(test_payload)
         assert actual == "0.0.0"
 
-    def extract_latest_version_missing_info(self):
+    def test_extract_latest_version_missing_info(self):
         test_payload = {}
         with pytest.raises(CliError) as e:
             extract_latest_version(test_payload)
             assert "info" in str(e)
 
-    def extract_latest_version_missing_version(self):
+    def test_extract_latest_version_missing_version(self):
         test_payload = {"info": {}}
         with pytest.raises(CliError) as e:
             extract_latest_version(test_payload)
