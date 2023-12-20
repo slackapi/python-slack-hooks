@@ -14,9 +14,23 @@ from slack_cli_hooks.hooks.check_update import (
     pypi_get,
     pypi_get_json,
 )
+from slack_cli_hooks.protocol.default_protocol import DefaultProtocol
 
 
 class TestGetManifest:
+    def setup_method(self):
+        check_update.PROTOCOL = DefaultProtocol()
+
+    def build_pypi_response(self, project: str, status: int = 200, headers=HTTPMessage(), body={}) -> PypiResponse:
+        headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
+
+        return PypiResponse(
+            url=f"https://pypi.org/pypi/{project}/json",
+            status=status,
+            headers=headers,
+            body=json.dumps(body),
+        )
+
     def test_pypi_get(self):
         mock_headers = HTTPMessage()
         mock_headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
@@ -35,15 +49,7 @@ class TestGetManifest:
 
     def test_pypi_get_json(self):
         project = "my_test_project"
-        mock_headers = HTTPMessage()
-        mock_headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
-
-        mock_response = PypiResponse(
-            url="https://pypi.org/pypi/{project}/json",
-            status=200,
-            headers=mock_headers,
-            body=json.dumps({"info": {}, "releases": {}}),
-        )
+        mock_response = self.build_pypi_response(project, body={"info": {}, "releases": {}})
 
         with patch.object(check_update, pypi_get.__name__) as mock_pypi_get:
             mock_pypi_get.return_value = mock_response
@@ -53,15 +59,7 @@ class TestGetManifest:
 
     def test_pypi_get_json_fail(self):
         project = "my_test_project"
-        mock_headers = HTTPMessage()
-        mock_headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
-
-        mock_response = PypiResponse(
-            url="https://pypi.org/pypi/{project}/json",
-            status=300,
-            headers=mock_headers,
-            body=json.dumps({"info": {}, "releases": {}}),
-        )
+        mock_response = self.build_pypi_response(project, status=300)
 
         with patch.object(check_update, pypi_get.__name__) as mock_pypi_get:
             mock_pypi_get.return_value = mock_response
@@ -69,7 +67,7 @@ class TestGetManifest:
                 pypi_get_json(project)
 
             assert "300" in str(e)
-            assert "https://pypi.org/pypi/{project}/json" in str(e)
+            assert f"https://pypi.org/pypi/{project}/json" in str(e)
 
     def test_extract_latest_version(self):
         test_payload = {"info": {"version": "0.0.0"}}
@@ -98,13 +96,29 @@ class TestGetManifest:
             mock_pypi_get_json.return_value = {"info": {"version": "0.0.1"}}
             actual = build_release(test_dependency)
 
-        assert actual == {
+        assert vars(actual) == {
             "name": "test-dependency",
             "current": "0.0.0",
             "latest": "0.0.1",
             "update": True,
             "breaking": False,
-            "error": None,
+        }
+
+    def test_error_build_release(self):
+        test_dependency = MagicMock()
+        test_dependency.version.__version__ = "0.0.0"
+        test_dependency.__name__ = "test-dependency"
+
+        with patch.object(check_update, pypi_get_json.__name__) as mock_pypi_get_json:
+            mock_pypi_get_json.return_value = {"info": {"version": "0.0.1"}}
+            actual = build_release(test_dependency)
+
+        assert vars(actual) == {
+            "name": "test-dependency",
+            "current": "0.0.0",
+            "latest": "0.0.1",
+            "update": True,
+            "breaking": False,
         }
 
     def test_build_output(self):
@@ -112,8 +126,6 @@ class TestGetManifest:
 
         assert actual == {
             "name": "Slack Bolt",
-            "message": "",
             "url": "https://api.slack.com/future/changelog",
             "releases": [],
-            "error": None,
         }

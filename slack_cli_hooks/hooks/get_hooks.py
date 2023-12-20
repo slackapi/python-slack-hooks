@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 import json
-from slack_cli_hooks.protocol import Protocol, MessageBoundaryProtocol, DefaultProtocol, build_protocol
+from slack_cli_hooks.protocol import (
+    Protocol,
+    MessageBoundaryProtocol,
+    DefaultProtocol,
+    build_protocol,
+)
 
 PROTOCOL: Protocol
 EXEC = "python3"
