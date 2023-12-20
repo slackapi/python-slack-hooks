@@ -1,21 +1,32 @@
 #!/usr/bin/env python
 import json
-from http.client import HTTPResponse, HTTPMessage
+from http.client import HTTPMessage, HTTPResponse
+from types import ModuleType
 from typing import Any, Dict, List, Optional
 from urllib import request
-from pkg_resources import parse_version as Version
-from types import ModuleType
 
 import slack_bolt
 import slack_sdk
-import slack_cli_hooks.version
+from pkg_resources import parse_version as Version
 
-from slack_cli_hooks.protocol import Protocol, build_protocol
+import slack_cli_hooks.version
 from slack_cli_hooks.error import PypiError
+from slack_cli_hooks.protocol import Protocol, build_protocol
 
 PROTOCOL: Protocol
 
 DEPENDENCIES: List[ModuleType] = [slack_cli_hooks, slack_bolt, slack_sdk]
+
+
+def parse_major(v: Version) -> int:
+    """The first item of :attr:`release` or ``0`` if unavailable.
+
+    >>> parse_major(Version("1.2.3"))
+    1
+    """
+    # This implementation comes directly from Version implementation since it is not supported in 3.6
+    # source: https://github.com/pypa/packaging/blob/main/src/packaging/version.py
+    return v._version.release[0] if len(v._version) >= 1 else 0  # type: ignore
 
 
 class PypiResponse:
@@ -41,7 +52,7 @@ class Release:
             self.current = current.base_version
             self.latest = latest.base_version
             self.update = current < latest
-            self.breaking = (current.major - latest.major) != 0
+            self.breaking = (parse_major(current) - parse_major(latest)) != 0
         if error:
             self.error = error
         if message:
@@ -95,7 +106,7 @@ def build_release(dependency: ModuleType) -> Release:
         return Release(name=name, error={"message": str(e)})
 
 
-def build_output(dependencies: List[str] = DEPENDENCIES) -> Dict[str, Any]:
+def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> Dict[str, Any]:
     output = {"name": "Slack Bolt", "url": "https://api.slack.com/future/changelog", "releases": []}
     errors = []
 
