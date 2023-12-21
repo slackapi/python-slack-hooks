@@ -7,23 +7,15 @@ import pytest
 
 from slack_cli_hooks.error import PypiError
 from slack_cli_hooks.hooks import check_update
-from slack_cli_hooks.hooks.check_update import (PypiResponse, build_output,
-                                                build_release,
-                                                extract_latest_version,
-                                                pypi_get, pypi_get_json)
+from slack_cli_hooks.hooks.check_update import (
+    build_output,
+    build_release,
+    extract_latest_version,
+    pypi_get,
+    pypi_get_json,
+)
 from slack_cli_hooks.protocol.default_protocol import DefaultProtocol
 from tests.utils import build_fake_dependency, build_fake_pypi_urlopen
-
-
-def build_pypi_response(project: str, status: int = 200, headers=HTTPMessage(), body={}) -> PypiResponse:
-    headers.add_header("Content-Type", 'application/json; charset="UTF-8"')
-
-    return PypiResponse(
-        url=f"https://pypi.org/pypi/{project}/json",
-        status=status,
-        headers=headers,
-        body=json.dumps(body),
-    )
 
 
 class TestGetManifest:
@@ -40,7 +32,7 @@ class TestGetManifest:
 
         assert response.url == f"https://pypi.org/pypi/{test_project}/json"
         assert response.status == 200
-        assert response.body == "{}"
+        assert response.read().decode("utf-8") == "{}"
 
     def test_pypi_get_json(self):
         project = "my_test_project"

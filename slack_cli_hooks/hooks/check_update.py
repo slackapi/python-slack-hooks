@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import json
-from http.client import HTTPMessage, HTTPResponse
+from http.client import HTTPResponse
 from types import ModuleType
 from typing import Any, Dict, List, Optional
 from urllib import request
@@ -24,17 +24,9 @@ def parse_major(v: Version) -> int:
     >>> parse_major(Version("1.2.3"))
     1
     """
-    # This implementation comes directly from Version implementation since it is not supported in 3.6
+    # This implementation comes directly from the Version implementation since it is not supported in 3.6
     # source: https://github.com/pypa/packaging/blob/main/src/packaging/version.py
     return v._version.release[0] if len(v._version) >= 1 else 0  # type: ignore
-
-
-class PypiResponse:
-    def __init__(self, url: str, status: int, headers: HTTPMessage, body: str):
-        self.url = url
-        self.status = status
-        self.headers = headers
-        self.body = body
 
 
 class Release:
@@ -61,28 +53,23 @@ class Release:
             self.url = url
 
 
-def pypi_get(project: str) -> PypiResponse:
+def pypi_get(project: str, headers={"Accept": "application/json"}) -> HTTPResponse:
     # Based on https://warehouse.pypa.io/api-reference/json.html
     url = f"https://pypi.org/pypi/{project}/json"
-    pypi_request = request.Request(method="GET", url=url, headers={"Accept": "application/json"})
-    response: HTTPResponse = request.urlopen(pypi_request)
-    charset = response.headers.get_content_charset() or "utf-8"
-    return PypiResponse(
-        url=response.url,
-        status=response.getcode(),
-        headers=response.headers,
-        body=response.read().decode(charset),
-    )
+    pypi_request = request.Request(method="GET", url=url, headers=headers)
+    return request.urlopen(pypi_request)
 
 
 def pypi_get_json(project: str) -> Dict[str, Any]:
     pypi_response = pypi_get(project)
+    charset = pypi_response.headers.get_content_charset() or "utf-8"
+    raw_body = pypi_response.read().decode(charset)
     if pypi_response.status > 200:
         PROTOCOL.debug(f"Received status {pypi_response.status} from {pypi_response.url}")
-        PROTOCOL.debug(f"Headers {pypi_response.headers.items()}")
-        PROTOCOL.debug(f"Body {pypi_response.body}")
+        PROTOCOL.debug(f"Headers {dict(pypi_response.getheaders())}")
+        PROTOCOL.debug(f"Body {raw_body}")
         raise PypiError(f"Received status {pypi_response.status} from {pypi_response.url}")
-    return json.loads(pypi_response.body)
+    return json.loads(raw_body)
 
 
 def extract_latest_version(payload: Dict[str, Any]) -> str:
