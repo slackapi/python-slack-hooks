@@ -1,5 +1,3 @@
-import json
-from http.client import HTTPMessage
 from unittest.mock import patch
 from urllib import request
 
