@@ -94,7 +94,7 @@ def build_release(dependency: ModuleType) -> Release:
 
 
 def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> Dict[str, Any]:
-    output = {"name": "Slack Bolt", "url": "https://api.slack.com/future/changelog", "releases": []}
+    output = {"name": "Slack Bolt", "url": "https://api.slack.com/automation/changelog", "releases": []}
     errors = []
 
     for dep in dependencies:
