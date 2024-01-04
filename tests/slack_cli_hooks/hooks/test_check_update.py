@@ -106,6 +106,6 @@ class TestGetManifest:
 
         assert actual == {
             "name": "Slack Bolt",
-            "url": "https://api.slack.com/future/changelog",
+            "url": "https://api.slack.com/automation/changelog",
             "releases": [],
         }
