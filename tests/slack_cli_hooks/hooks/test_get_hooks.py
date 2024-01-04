@@ -8,6 +8,7 @@ class TestGetHooks:
 
         assert "slack_cli_hooks.hooks.get_manifest" in hooks["get-manifest"]
         assert "slack_cli_hooks.hooks.start" in hooks["start"]
+        assert "slack_cli_hooks.hooks.check_update" in hooks["check-update"]
 
     def test_hooks_payload_config(self):
         config = hooks_payload["config"]
