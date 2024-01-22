@@ -1,154 +1,54 @@
-<h1 align="center">Python Slack Hooks</h1>
+# Python Slack Hooks
 
-A helper library implementing the contract between the
-[Slack CLI][slack-cli-docs] and
-[Bolt for Python](https://slack.dev/bolt-python/)
+This library defines the contract between the
+[Slack CLI](https://api.slack.com/automation/cli/install) and
+[Bolt for Python](https://slack.dev/bolt-python/).
 
-## Environment requirements
+## Overview
+This library enables inter-process communication between the [Slack CLI](https://api.slack.com/automation/cli/install) and applications built with Bolt for Python. 
 
-Before getting started, make sure you have a development workspace where you
-have permissions to install apps. **Please note that leveraging all features in
-this project require that the workspace be part of
-[a Slack paid plan](https://slack.com/pricing).**
+When used together, the CLI delegates various tasks to the Bolt application by invoking processes ("hooks") and then making use of the responses provided by each hook's `stdout`. 
 
-### Install the Slack CLI
+For a complete list of available hooks, read the [Supported Hooks](#supported-hooks) section.
 
-Install the Slack CLI. Step-by-step instructions can be found in this
-[Quickstart Guide][slack-cli-docs].
+## Requirements
+The latest minor version of [Bolt v1](https://pypi.org/project/slack-bolt/) is recommended.
 
-### Environment Setup
+## Usage
+A Slack CLI-compatible Slack application includes a `./slack.json` file that contains hooks specific to that project. Each hook is associated with commands that are available in the Slack CLI. By default, `get-hooks` retrieves all of the [supported hooks](#supported-hooks) and their corresponding scripts as defined in this library.
 
-Create a project folder and a
-[virtual environment](https://docs.python.org/3/library/venv.html#module-venv)
-within it
+The CLI will always use the version of the `python-slack-hooks` that is specified in the project's `requirements.txt`.
 
-```zsh
-# Python 3.6+ required
-mkdir myproject
-cd myproject
-python3 -m venv .venv
+### Supported Hooks
+
+The hooks currently supported for use within the Slack CLI include `check-update`, `get-hooks`, `get-manifest`, and `start`:
+
+| Hook Name  | CLI Command  | File  |  Description  |
+| --- | --- | --- | --- |
+| `check-update` | `slack update` | [check_update.py](./slack_cli_hooks/hooks/check_update.py) | Checks the project's Slack dependencies to determine whether or not any libraries need to be updated. |
+| `get-hooks` | All | [get_hooks.py](./slack_cli_hooks/hooks/get_hooks.py) | Fetches the list of available hooks for the CLI from this repository. |
+| `get-manifest` | `slack manifest` | [get_manifest.py](./slack_cli_hooks/hooks/get_manifest.py) | Converts a `manifest.json` file into a valid manifest JSON payload. |
+| `start` | `slack run` | [start.py](./slack_cli_hooks/hooks/start.py) | While developing locally, the CLI manages a socket connection with Slack's backend and utilizes this hook for events received via this connection. |
+
+
+### Overriding Hooks
+To customize the behavior of a hook, add the hook to your application's `/slack.json` file, and provide a corresponding script to be executed. 
+
+When commands are run, the Slack CLI will look to the project's hook definitions and use those instead of what's defined in this library, if provided.
+
+Below is an example `/slack.json` file that overrides the default `start`:
+
 ```
-
-Activate the environment
-
-```zsh
-source .venv/bin/activate
-```
-
-### Pypi
-
-Install this package using pip.
-
-```zsh
-pip install -U slack-cli-hooks
-```
-
-### Clone
-
-Clone this project using git.
-
-```zsh
-git clone https://github.com/slackapi/python-slack-hooks.git
-```
-
-Follow the
-[Develop Locally](https://github.com/slackapi/python-slack-hooks/blob/main/.github/maintainers_guide.md#develop-locally)
-steps in the maintainers guide to build and use this package.
-
-## Simple project
-
-In the same directory where we installed `slack-cli-hooks`
-
-1. Define basic information and metadata about our app via an
-   [App Manifest](https://api.slack.com/reference/manifests) (`manifest.json`).
-2. Create a `slack.json` file that defines the interface between the
-   [Slack CLI][slack-cli-docs] and [Bolt for Python][bolt-python-docs].
-3. Use an `app.py` file to define the entrypoint for a
-   [Bolt for Python][bolt-python-docs] project.
-
-### Application Configuration
-
-Define your [Application Manifest](https://api.slack.com/reference/manifests) in
-a `manifest.json` file.
-
-```json
-{
-  "display_information": {
-    "name": "simple-app"
-  },
-  "outgoing_domains": [],
-  "settings": {
-    "org_deploy_enabled": true,
-    "socket_mode_enabled": true,
-  },
-  "features": {
-    "bot_user": {
-      "display_name": "simple-app"
-    }
-  },
-  "oauth_config": {
-    "scopes": {
-      "bot": ["chat:write"]
-    }
-  }
-}
-```
-
-### CLI/Bolt Interface Configuration
-
-Define the Slack CLI configuration in a file named `slack.json`.
-
-```json
 {
   "hooks": {
-    "get-hooks": "python3 -m slack_cli_hooks.hooks.get_hooks"
+    "get-hooks": "python3 -m slack_cli_hooks.hooks.get_hooks",
+    "start": "python3 app.py"
   }
 }
 ```
-
-### Source code
-
-Create a [Bolt for Python][bolt-python-docs] app in a file named `app.py`.
-Alternatively you can use an existing app instead.
-
-```python
-from slack_bolt import App
-from slack_bolt.adapter.socket_mode import SocketModeHandler
-
-app = App()
-
-# Add functionality here
-
-if __name__ == "__main__":
-    SocketModeHandler(app).start()
-```
-
-## Running the app
-
-You should now be able to harness the power of the Slack CLI and Bolt.
-
-Run the app this way:
-
-```zsh
-slack run
-```
-
-## Getting Help
-
-If you get stuck we're here to help. Ensure your issue is related to this
-project and not to [Bolt for Python][bolt-python-docs]. The following are the
-best ways to get assistance working through your issue:
-
-- [Issue Tracker](https://github.com/slackapi/python-slack-hooks/issues) for
-  questions, bug reports, feature requests, and general discussion. **Try
-  searching for an existing issue before creating a new one.**
-- Email our developer support team: `support@slack.com`
 
 ## Contributing
 
-Contributions are more then welcome. Please look at the
+Contributions are always welcome! Please review the
 [contributing guidelines](https://github.com/slackapi/python-slack-hooks/blob/main/.github/CONTRIBUTING.md)
-for more info!
-
-[slack-cli-docs]: https://api.slack.com/automation/cli
-[bolt-python-docs]: https://slack.dev/bolt-python/concepts
+for more information.
