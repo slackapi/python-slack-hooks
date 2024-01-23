@@ -94,9 +94,7 @@ def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> Dict[str, Any
             errors.append(release.name)
 
     if errors:
-        output["error"]: ErrorDict = {
-            "message": f"An error occurred fetching updates for the following packages: {', '.join(errors)}"
-        }
+        output["error"] = {"message": f"An error occurred fetching updates for the following packages: {', '.join(errors)}"}
     return output
 
 
