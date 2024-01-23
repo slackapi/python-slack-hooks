@@ -10,8 +10,6 @@ clean_project() {
 }
 
 install_development_requirements() {
-	python_version=`python --version | awk '{print $2}'`
-
 	pip install -U pip
 	pip install -e .
 	pip install -r requirements/testing.txt
