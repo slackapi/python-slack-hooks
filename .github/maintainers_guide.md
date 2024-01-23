@@ -20,14 +20,14 @@ Install necessary Python runtimes for development/testing. You can rely on GitHu
 ```zsh
 pyenv install -l | grep -v "-e[conda|stackless|pypy]"
 
-pyenv install 3.8.5 # select the latest patch version
-pyenv local 3.8.5
+pyenv install 3.9.18 # select the latest patch version
+pyenv local 3.9.18
 
 pyenv versions
   system
   3.6.10
   3.7.7
-* 3.8.5 (set by /path-to-python-slack-hooks/.python-version)
+* 3.9.18 (set by /path-to-python-slack-hooks/.python-version)
 
 pyenv rehash
 ```
@@ -35,8 +35,8 @@ pyenv rehash
 Then, you can create a new Virtual Environment this way:
 
 ```zsh
-python -m venv env_3.8.5
-source env_3.8.5/bin/activate
+python -m venv env_3.9.18
+source env_3.9.18/bin/activate
 ```
 
 ## Tasks

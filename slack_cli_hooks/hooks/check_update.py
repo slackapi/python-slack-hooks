@@ -2,12 +2,12 @@
 import json
 from http.client import HTTPResponse
 from types import ModuleType
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TypedDict
 from urllib import request
 
 import slack_bolt
 import slack_sdk
-from pkg_resources import parse_version as Version
+from packaging.version import Version
 
 import slack_cli_hooks.version
 from slack_cli_hooks.error import PypiError
@@ -18,15 +18,14 @@ PROTOCOL: Protocol
 DEPENDENCIES: List[ModuleType] = [slack_cli_hooks, slack_bolt, slack_sdk]
 
 
-def parse_major(v: Version) -> int:
-    """The first item of :attr:`release` or ``0`` if unavailable.
+class ErrorDict(TypedDict):
+    message: str
 
-    >>> parse_major(Version("1.2.3"))
-    1
-    """
-    # This implementation comes directly from the Version implementation since it is not supported in 3.6
-    # source: https://github.com/pypa/packaging/blob/main/src/packaging/version.py
-    return v._version.release[0] if len(v._version) >= 1 else 0  # type: ignore
+
+class OutputDict(TypedDict):
+    name: str
+    url: str
+    releases: List[Dict]
 
 
 class Release:
@@ -37,14 +36,14 @@ class Release:
         latest: Optional[Version] = None,
         message: Optional[str] = None,
         url: Optional[str] = None,
-        error: Optional[Dict[str, str]] = None,
+        error: Optional[ErrorDict] = None,
     ):
         self.name = name
         if current and latest:
             self.current = current.base_version
             self.latest = latest.base_version
             self.update = current < latest
-            self.breaking = (parse_major(current) - parse_major(latest)) != 0
+            self.breaking = (current.major - latest.major) != 0
         if error:
             self.error = error
         if message:
@@ -93,8 +92,8 @@ def build_release(dependency: ModuleType) -> Release:
         return Release(name=name, error={"message": str(e)})
 
 
-def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> Dict[str, Any]:
-    output = {"name": "Slack Bolt", "url": "https://api.slack.com/automation/changelog", "releases": []}
+def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> OutputDict:
+    output: OutputDict = {"name": "Slack Bolt", "url": "https://api.slack.com/automation/changelog", "releases": []}
     errors = []
 
     for dep in dependencies:
@@ -105,7 +104,9 @@ def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> Dict[str, Any
             errors.append(release.name)
 
     if errors:
-        output["error"] = {"message": f"An error occurred fetching updates for the following packages: {', '.join(errors)}"}
+        output["error"]: ErrorDict = {
+            "message": f"An error occurred fetching updates for the following packages: {', '.join(errors)}"
+        }
     return output
 
 
