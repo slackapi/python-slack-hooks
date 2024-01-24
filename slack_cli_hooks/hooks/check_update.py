@@ -7,7 +7,7 @@ from urllib import request
 
 import slack_bolt
 import slack_sdk
-from pkg_resources import parse_version as Version
+from packaging.version import Version
 
 import slack_cli_hooks.version
 from slack_cli_hooks.error import PypiError
@@ -16,17 +16,6 @@ from slack_cli_hooks.protocol import Protocol, build_protocol
 PROTOCOL: Protocol
 
 DEPENDENCIES: List[ModuleType] = [slack_cli_hooks, slack_bolt, slack_sdk]
-
-
-def parse_major(v: Version) -> int:
-    """The first item of :attr:`release` or ``0`` if unavailable.
-
-    >>> parse_major(Version("1.2.3"))
-    1
-    """
-    # This implementation comes directly from the Version implementation since it is not supported in 3.6
-    # source: https://github.com/pypa/packaging/blob/main/src/packaging/version.py
-    return v._version.release[0] if len(v._version) >= 1 else 0  # type: ignore
 
 
 class Release:
@@ -44,7 +33,7 @@ class Release:
             self.current = current.base_version
             self.latest = latest.base_version
             self.update = current < latest
-            self.breaking = (parse_major(current) - parse_major(latest)) != 0
+            self.breaking = (current.major - latest.major) != 0
         if error:
             self.error = error
         if message:

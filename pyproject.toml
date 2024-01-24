@@ -8,7 +8,7 @@ dynamic = ["version", "readme", "dependencies"]
 description = "The Slack CLI contract implementation for Bolt Python"
 license = { text = "MIT" }
 authors = [{ name = "Slack Technologies, LLC", email = "opensource@slack.com" }]
-requires-python = ">=3.6"
+requires-python = ">=3.9"
 classifiers = [
 	"Development Status :: 2 - Pre-Alpha",
 	"Environment :: Console",
@@ -18,9 +18,6 @@ classifiers = [
 	"License :: OSI Approved :: MIT License",
 	"Programming Language :: Python",
 	"Programming Language :: Python :: 3 :: Only",
-	"Programming Language :: Python :: 3.6",
-	"Programming Language :: Python :: 3.7",
-	"Programming Language :: Python :: 3.8",
 	"Programming Language :: Python :: 3.9",
 	"Programming Language :: Python :: 3.10",
 	"Programming Language :: Python :: 3.11",
