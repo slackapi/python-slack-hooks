@@ -123,15 +123,16 @@ It is possible to deploy this project on <https://test.pypi.org/> in order to tr
       - Note that the `dev` version can be bumped in development releases: `1.3.0.dev0` -> `1.3.0.dev1`
     - Commit with a message including the new version number. For example `1.3.0.dev0` & Push the commit to a branch where the development release will live (create it if it does not exist)
       - `git checkout -b future-release`
+      - `git add slack_cli_hooks/version.py`
       - `git commit -m 'version 1.3.0.dev0'`
       - `git push future-release`
-    - Create a git tag for the release. For example `git tag v1.3.0.dev0`.
+    - Create a git tag for the release. For example `git tag 1.3.0.dev0`.
     - Push the tag up to github with `git push origin --tags`
 
 2. Distribute the release
    - Use the latest stable Python runtime
    - `python -m venv .venv`
-   - `./scripts/deploy_to_prod_pypi.sh`
+   - `scripts/deploy_to_prod_pypi.sh`
    - You do not need to create a GitHub release
 
 3. (Slack Internal) Communicate the release internally
@@ -141,35 +142,26 @@ It is possible to deploy this project on <https://test.pypi.org/> in order to tr
 1. Create the commit for the release:
    - Bump the version number in adherence to [Semantic Versioning](http://semver.org/) in `slack_cli_hooks/version.py`
    - Commit with a message including the new version number. For example `1.2.3` & Push the commit to a branch and create a PR to sanity check.
-     - `git checkout -b v1.2.3-release`
+     - `git checkout -b 1.2.3-release`
+     - `git add slack_cli_hooks/version.py`
      - `git commit -m 'version 1.2.3'`
-     - `git push {your-fork} v1.2.3-release`
-   - Merge in release PR after getting an approval from at least one maintainer.
-   - Create a git tag for the release. For example `git tag v1.2.3`.
-   - Push the tag up to github with `git push origin --tags`
+     - `git push {your-fork} 1.2.3-release`
+   - Create a release PR and get an approval from at least one maintainer.
+   - Merge in your release PR.
 
 2. Distribute the release
    - Use the latest stable Python runtime
    - `python -m venv .venv`
-   - `./scripts/deploy_to_pypi_org.sh`
+   - `/scripts/deploy_to_prod_pypi.sh`
    - Create a GitHub release - <https://github.com/slackapi/python-slack-hooks/releases>
-
-   ```markdown
-   ## New Features
-
-   ### Awesome Feature 1
-
-   Description here.
-
-   ### Awesome Feature 2
-
-   Description here.
-
-   ## Changes
-
-   * #123 Make it better - thanks @SlackHQ
-   * #123 Fix something wrong - thanks @seratch
-   ```
+   - Click `Draft a new release`
+   - Input the new version you set in [version.py](../slack_cli_hooks/version.py) manually as the `choose a tag` input (example `1.2.3`)
+   - After you input the new version, click the "Create a new tag: x.x.x on publish" button.
+   - Set the "Target" input to the "main" branch.
+   - Name the release title after the version tag.
+   - Auto-generate the release notes by clicking the "Auto-generate release notes" button.
+   - Make any adjustments to generated release notes to make sure they are accessible and approachable and that an end-user with little context about this project could still understand.
+   - Publish the release by clicking the "Publish release" button!
 
 3. (Slack Internal) Communicate the release internally
    - Include a link to the GitHub release
