@@ -1,4 +1,4 @@
 black
 flake8>=5.0.4, <8;
 pytype; (python_version<"3.11" or python_version>"3.11")
-pytype==2023.11.29; python_version=="3.11"
+pytype==2024.1.24; python_version=="3.11"
