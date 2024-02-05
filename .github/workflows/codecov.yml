@@ -6,29 +6,26 @@ on:
   pull_request:
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    strategy:
-      matrix:
-        python-version: ["3.12"]
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.12
       - name: Install dependencies
         run: |
           pip install -U pip
-          pip install .
+          pip install -r requirements.txt
           pip install -r requirements/testing.txt
       - name: Run all tests for codecov
         run: |
           pytest --cov=./slack_cli_hooks/ --cov-report=xml
-      # TODO uncomment when repo public
-      # - name: Upload coverage to Codecov
-      #   uses: codecov/codecov-action@v3
-      #   with:
-      #     fail_ci_if_error: true
-      #     verbose: true
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true
