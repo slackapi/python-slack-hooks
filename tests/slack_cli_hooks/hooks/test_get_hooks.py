@@ -26,4 +26,5 @@ class TestGetHooks:
 
     def test_hooks_runtime(self):
         runtime = hooks_payload["runtime"]
+
         assert runtime == "python"
