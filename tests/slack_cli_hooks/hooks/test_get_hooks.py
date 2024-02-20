@@ -23,3 +23,7 @@ class TestGetHooks:
 
         filter_regex = config["watch"]["filter-regex"]
         assert re.match(filter_regex, "manifest.json") is not None
+
+    def test_hooks_runtime(self):
+        runtime = hooks_payload["runtime"]
+        assert runtime == "python"
