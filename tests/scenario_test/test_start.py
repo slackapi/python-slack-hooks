@@ -14,16 +14,16 @@ class TestStart:
 
     def setup_method(self):
         self.old_os_env = remove_os_env_temporarily()
-        os.environ["SLACK_CLI_XOXB"] = "xoxb-valid"
-        os.environ["SLACK_CLI_XAPP"] = "xapp-A111-222-xyz"
+        os.environ["SLACK_BOT_TOKEN"] = "xoxb-valid"
+        os.environ["SLACK_APP_TOKEN"] = "xapp-A111-222-xyz"
         setup_mock_web_api_server(self)
         start_socket_mode_server(self, 3012)
         self.cwd = os.getcwd()
 
     def teardown_method(self):
         os.chdir(self.cwd)
-        os.environ.pop("SLACK_CLI_XOXB", None)
-        os.environ.pop("SLACK_CLI_XAPP", None)
+        os.environ.pop("SLACK_BOT_TOKEN", None)
+        os.environ.pop("SLACK_APP_TOKEN", None)
         os.environ.pop("SLACK_APP_PATH", None)
         cleanup_mock_web_api_server(self)
         stop_socket_mode_server(self)
