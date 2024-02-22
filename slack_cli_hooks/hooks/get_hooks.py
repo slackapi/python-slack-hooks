@@ -22,6 +22,7 @@ hooks_payload = {
         "protocol-version": [MessageBoundaryProtocol.name, DefaultProtocol.name],
         "sdk-managed-connection-enabled": True,
     },
+    "runtime": "python",
 }
 
 if __name__ == "__main__":
