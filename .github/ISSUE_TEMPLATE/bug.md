@@ -6,7 +6,7 @@ title: '[BUG] <title>'
 
 <!-- If you find a bug, please search for it in the [Issues](https://github.com/slackapi/python-slack-hooks/issues), and if it isn't already tracked then create a new issue -->
 
-**The `deno-slack` versions**
+**The `slack_cli_hooks` versions**
 
 <!-- Paste the output of `pip freeze | grep slack` -->
 

@@ -17,8 +17,8 @@ label: question
 
 **Environment**
 
-<!-- Paste the output of `cat import_map.json | grep deno-slack` -->
-<!-- Paste the output of `deno --version` -->
+<!-- Paste the output of `pip freeze | grep slack` -->
+<!-- Paste the output of `python --version` -->
 <!-- Paste the output of `sw_vers && uname -v` on macOS/Linux or `ver` on Windows OS -->
 
 **Requirements**
