@@ -14,7 +14,7 @@ doctor_payload = {
     "versions": [
         {
             "name": "python",
-            "current": platform.python_build()[0],
+            "current": platform.python_version(),
         },
         {
             "name": "implementation",
