@@ -9,7 +9,7 @@ class TestDoctor:
         assert versions is not None
 
         assert versions[0].get("name") == "python"
-        assert versions[0].get("current") == platform.python_build()[0]
+        assert versions[0].get("current") == platform.python_version()
         assert versions[1].get("name") == "implementation"
         assert versions[1].get("current") == platform.python_implementation()
         assert versions[2].get("name") == "compiler"
