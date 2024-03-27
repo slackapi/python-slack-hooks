@@ -33,11 +33,12 @@ The CLI will always use the version of the `python-slack-hooks` that is specifie
 
 ### Supported Hooks
 
-The hooks currently supported for use within the Slack CLI include `check-update`, `get-hooks`, `get-manifest`, and `start`:
+The hooks currently supported for use within the Slack CLI include `check-update`, `doctor`, `get-hooks`, `get-manifest`, and `start`:
 
 | Hook Name  | CLI Command  | File  |  Description  |
 | --- | --- | --- | --- |
 | `check-update` | `slack update` | [check_update.py](./slack_cli_hooks/hooks/check_update.py) | Checks the project's Slack dependencies to determine whether or not any libraries need to be updated. |
+| `doctor` | `slack doctor` | [doctor.py](./slack_cli_hooks/hooks/doctor.py) | Returns runtime versions and other system dependencies required by the application. |
 | `get-hooks` | All | [get_hooks.py](./slack_cli_hooks/hooks/get_hooks.py) | Fetches the list of available hooks for the CLI from this repository. |
 | `get-manifest` | `slack manifest` | [get_manifest.py](./slack_cli_hooks/hooks/get_manifest.py) | Converts a `manifest.json` file into a valid manifest JSON payload. |
 | `start` | `slack run` | [start.py](./slack_cli_hooks/hooks/start.py) | While developing locally, the CLI manages a socket connection with Slack's backend and utilizes this hook for events received via this connection. |
