@@ -108,7 +108,12 @@ If you want to test the package locally you can.
 
 #### test.pypi.org deployment
 
-It is possible to deploy this project on <https://test.pypi.org/> in order to try out packaging and deploy related changes
+[TestPyPI](https://test.pypi.org/) is a separate instance of the
+Python Package Index that allows you to try distribution tools and
+processes without affecting the real index. This is useful with changes that
+relate to the package itself, example the contents of the `pyproject.toml`
+
+The following can be used to deploy this project on <https://test.pypi.org/>.
 
 ```zsh
 # Set the new version with SLACK_CLI_HOOKS_VERSION
@@ -118,7 +123,7 @@ SLACK_CLI_HOOKS_VERSION="1.2.3" ./scripts/deploy_to_test_pypi.sh
 #### Development Deployment
 
 Releases for this library are automatically generated off of git releases. Before
-creating a new release, ensure that everything on a feature branch,
+creating a new release, ensure that everything on a stable branch,
 [run the tests](#run-all-the-unit-tests).
 
 1. Create a new GitHub Release from the
