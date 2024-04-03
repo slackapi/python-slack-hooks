@@ -123,7 +123,7 @@ SLACK_CLI_HOOKS_VERSION="1.2.3" ./scripts/deploy_to_test_pypi.sh
 #### Development Deployment
 
 Releases for this library are automatically generated off of git releases. Before
-creating a new release, ensure that everything on a stable branch,
+creating a new release, ensure that everything on a stable branch has landed, then
 [run the tests](#run-all-the-unit-tests).
 
 1. Create a new GitHub Release from the
