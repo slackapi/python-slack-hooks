@@ -3,9 +3,11 @@ from urllib import request
 
 import pytest
 
+from packaging.version import Version
 from slack_cli_hooks.error import PypiError
 from slack_cli_hooks.hooks import check_update
 from slack_cli_hooks.hooks.check_update import (
+    Release,
     build_output,
     build_release,
     extract_latest_version,
@@ -16,7 +18,48 @@ from slack_cli_hooks.protocol.default_protocol import DefaultProtocol
 from tests.utils import build_fake_dependency, build_fake_pypi_urlopen
 
 
-class TestGetManifest:
+class TestRelease:
+    test_project = "test_proj"
+
+    def setup_method(self):
+        check_update.PROTOCOL = DefaultProtocol()
+
+    def test_release_with_same_version(self):
+        release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.0"))
+        assert release.current == release.latest
+        assert release.breaking is False
+        assert release.update is False
+
+    def test_release_with_diff_version(self):
+        release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.1"))
+        assert release.current == "0.0.0"
+        assert release.latest == "0.0.1"
+        assert release.breaking is False
+        assert release.update is True
+
+    def test_release_with_rc(self):
+        release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.1rc1"))
+        assert release.current == "0.0.0"
+        assert release.latest == "0.0.1rc1"
+        assert release.breaking is False
+        assert release.update is False
+
+    def test_release_with_dev(self):
+        release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.0.dev0"))
+        assert release.current == "0.0.0"
+        assert release.latest == "0.0.0.dev0"
+        assert release.breaking is False
+        assert release.update is False
+
+    def test_release_with_dev_on_higher_version(self):
+        release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.1.dev0"))
+        assert release.current == "0.0.0"
+        assert release.latest == "0.0.1.dev0"
+        assert release.breaking is False
+        assert release.update is True 
+
+
+class TestCheckUpdate:
     def setup_method(self):
         check_update.PROTOCOL = DefaultProtocol()
 
