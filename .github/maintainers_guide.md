@@ -1,24 +1,21 @@
 # Maintainers Guide
 
-This document describes tools, tasks and workflow that one needs to be familiar
-with in order to effectively maintain this project. If you use this package
-within your own software as is but don't plan on modifying it, this guide is
+This document describes tools, tasks and workflow that one needs to be familiar with in order to effectively maintain
+this project. If you use this package within your own software as is but don't plan on modifying it, this guide is
 **not** for you.
 
 ## Tools
 
 ### Python (and friends)
 
-We recommend using [pyenv](https://github.com/pyenv/pyenv) for Python runtime
-management. If you use macOS, follow the following steps:
+We recommend using [pyenv](https://github.com/pyenv/pyenv) for Python runtime management. If you use macOS, follow the following steps:
 
 ```zsh
 brew update
 brew install pyenv
 ```
 
-Install necessary Python runtimes for development/testing. You can rely on
-GitHub Actions for testing with various major versions.
+Install necessary Python runtimes for development/testing. You can rely on GitHub Actions for testing with various major versions.
 
 ```zsh
 pyenv install -l | grep -v "-e[conda|stackless|pypy]"
@@ -48,12 +45,9 @@ source env_3.9.18/bin/activate
 
 #### Run All the Unit Tests
 
-If you make some changes to this project, please write corresponding unit tests
-as much as possible. You can easily run all the tests by running the following
-scripts.
+If you make some changes to this project, please write corresponding unit tests as much as possible. You can easily run all the tests by running the following scripts.
 
-If this is your first time to run tests, although it may take a bit longer,
-running the following script is the easiest.
+If this is your first time to run tests, although it may take a bit longer, running the following script is the easiest.
 
 ```zsh
 ./scripts/install_and_run_tests.sh
@@ -84,8 +78,7 @@ To lint this project
 ./scripts/lint.sh
 ```
 
-This project uses [pytype](https://google.github.io/pytype/) to check and infers
-types for your Python code.
+This project uses [pytype](https://google.github.io/pytype/) to check and infers types for your Python code.
 
 ```zsh
 ./scripts/run_pytype.sh
@@ -105,8 +98,7 @@ If you want to test the package locally you can.
    - This will create a `.whl` file in the `./dist` folder
 2. Use the built package
    - Example `/dist/slack_cli_hooks-1.2.3-py2.py3-none-any.whl` was created
-   - From anywhere on your machine you can install this package to a project
-     with
+   - From anywhere on your machine you can install this package to a project with
 
      ```zsh
      pip install <project path>/dist/slack_cli_hooks-1.2.3-py2.py3-none-any.whl
@@ -239,36 +231,29 @@ This project uses semantic versioning, expressed through the numbering scheme of
 
 ### Branches
 
-`main` is where active development occurs. Long running named feature branches
-are occasionally created for collaboration on a feature that has a large scope
-(because everyone cannot push commits to another person's open Pull Request). At
-some point in the future after a major version increment, there may be
-maintenance branches for older major versions.
+`main` is where active development occurs. Long running named feature branches are occasionally created for
+collaboration on a feature that has a large scope (because everyone cannot push commits to another person's open Pull
+Request). At some point in the future after a major version increment, there may be maintenance branches for older major
+versions.
 
 ### Issue Management
 
-Labels are used to run issues through an organized workflow. Here are the basic
-definitions:
+Labels are used to run issues through an organized workflow. Here are the basic definitions:
 
-- `bug`: A confirmed bug report. A bug is considered confirmed when reproduction
-  steps have been documented and the issue has been reproduced.
-- `enhancement`: A feature request for something this package might not already
-  do.
+- `bug`: A confirmed bug report. A bug is considered confirmed when reproduction steps have been
+  documented and the issue has been reproduced.
+- `enhancement`: A feature request for something this package might not already do.
 - `docs`: An issue that is purely about documentation work.
 - `tests`: An issue that is purely about testing work.
-- `discussion`: An issue that is purely meant to hold a discussion. Typically
-  the maintainers are looking for feedback in this issues.
-- `question`: An issue that is like a support request because the user's usage
-  was not correct.
+- `discussion`: An issue that is purely meant to hold a discussion. Typically the maintainers are looking for feedback in this issues.
+- `question`: An issue that is like a support request because the user's usage was not correct.
 
-**Triage** is the process of taking new issues that aren't yet "seen" and
-marking them with a basic level of information with labels. An issue should have
-**one** of the following labels applied: `bug`, `enhancement`, `question`,
+**Triage** is the process of taking new issues that aren't yet "seen" and marking them with a basic level of information
+with labels. An issue should have **one** of the following labels applied: `bug`, `enhancement`, `question`,
 `needs feedback`, `docs`, `tests`, or `discussion`.
 
-Issues are closed when a resolution has been reached. If for any reason a closed
-issue seems relevant once again, reopening is great and better than creating a
-duplicate issue.
+Issues are closed when a resolution has been reached. If for any reason a closed issue seems relevant once again,
+reopening is great and better than creating a duplicate issue.
 
 ## Everything else
 
