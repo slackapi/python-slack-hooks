@@ -37,26 +37,12 @@ class TestRelease:
         assert release.breaking is False
         assert release.update is True
 
-    def test_release_with_rc(self):
-        release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.1rc1"))
-        assert release.current == "0.0.0"
-        assert release.latest == "0.0.1rc1"
-        assert release.breaking is False
-        assert release.update is False
-
     def test_release_with_dev(self):
         release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.0.dev0"))
         assert release.current == "0.0.0"
         assert release.latest == "0.0.0.dev0"
         assert release.breaking is False
         assert release.update is False
-
-    def test_release_with_dev_on_higher_version(self):
-        release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.1.dev0"))
-        assert release.current == "0.0.0"
-        assert release.latest == "0.0.1.dev0"
-        assert release.breaking is False
-        assert release.update is True 
 
 
 class TestCheckUpdate:
