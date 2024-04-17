@@ -146,7 +146,7 @@ landed, then [run the tests](#run-all-the-unit-tests).
 2. Create a new GitHub Release from the
    [Releases page](https://github.com/slackapi/python-slack-hooks/releases) by
    clicking the "Draft a new release" button.
-3. Input a the version manually into the "Choose a tag" input. You must use the
+3. Input the version manually into the "Choose a tag" input. You must use the
    same version found in `slack_bolt/version.py`
 
    - After you input the new version, click the "Create a new tag: x.x.x on
