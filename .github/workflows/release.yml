@@ -22,8 +22,6 @@ jobs:
         run: |
           python -m build
           twine check dist/*
-        env:
-          SLACK_CLI_HOOKS_VERSION: ${{ github.event.release.name }}
       - name: Publish package
         run: twine upload dist/*
         env:
