@@ -122,7 +122,7 @@ The following can be used to deploy this project on <https://test.pypi.org/>.
 
 #### Development Deployment
 
-Releases for this library are automatically generated off of git releases.
+Deploying a new version of this library to Pypi is triggered by publishing a Github Release.
 Before creating a new release, ensure that everything on a stable branch has
 landed, then [run the tests](#run-all-the-unit-tests).
 
@@ -176,7 +176,7 @@ landed, then [run the tests](#run-all-the-unit-tests).
 
 #### Production Deployment
 
-Releases for this library are automatically generated off of git releases.
+Deploying a new version of this library to Pypi is triggered by publishing a Github Release.
 Before creating a new release, ensure that everything on the `main` branch since
 the last tag is in a releasable state! At a minimum,
 [run the tests](#run-all-the-unit-tests).
