@@ -44,6 +44,16 @@ class TestRelease:
         assert release.breaking is False
         assert release.update is False
 
+    def test_release_with_downgrades(self):
+        release = Release(name=self.test_project, current=Version("1.0.0"), latest=Version("0.0.0"))
+        assert release.breaking is False
+        assert release.update is False
+
+    def test_release_with_major_upgrade(self):
+        release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("1.0.0"))
+        assert release.breaking is True
+        assert release.update is True
+
 
 class TestCheckUpdate:
     def setup_method(self):

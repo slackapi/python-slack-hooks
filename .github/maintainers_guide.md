@@ -142,7 +142,7 @@ landed, then [run the tests](#run-all-the-unit-tests).
      will live (create it if it does not exist)
      - `git checkout -b future-release`
      - `git commit -m 'version 1.2.3.dev0'`
-     - `git push future-release`
+     - `git push -u origin future-release`
 2. Create a new GitHub Release from the
    [Releases page](https://github.com/slackapi/python-slack-hooks/releases) by
    clicking the "Draft a new release" button.

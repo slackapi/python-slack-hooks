@@ -33,7 +33,7 @@ class Release:
             self.current = str(current)
             self.latest = str(latest)
             self.update = current < latest
-            self.breaking = (current.major - latest.major) != 0
+            self.breaking = (latest.major - current.major) > 0
         if error:
             self.error = error
         if message:
