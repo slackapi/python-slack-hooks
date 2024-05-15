@@ -29,3 +29,20 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
           verbose: true
+
+  health-score:
+    needs: run
+    permissions:
+      checks: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v4
+      - name: Report health score
+        uses: slackapi/slack-health-score@v0
+        with:
+          codecov_token: ${{ secrets.FILS_CODECOV_API_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          extension: py
+          include: slack_cli_hooks
