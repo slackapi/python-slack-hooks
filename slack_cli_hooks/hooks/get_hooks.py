@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import json
+import sys
 from slack_cli_hooks.protocol import (
     Protocol,
     MessageBoundaryProtocol,
@@ -8,7 +9,7 @@ from slack_cli_hooks.protocol import (
 )
 
 PROTOCOL: Protocol
-EXEC = "python3"
+EXEC = sys.executable or "python3"
 
 
 hooks_payload = {
