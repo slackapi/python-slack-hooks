@@ -9,6 +9,8 @@ from slack_cli_hooks.protocol import (
 )
 
 PROTOCOL: Protocol
+
+# Stringify sys.executable to prevent execution failures if a white space is present in the absolute python path
 EXEC = f"'{sys.executable}'" or "python3"
 
 
