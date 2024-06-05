@@ -9,7 +9,7 @@ from slack_cli_hooks.protocol import (
 )
 
 PROTOCOL: Protocol
-EXEC = sys.executable or "python3"
+EXEC = f"'{sys.executable}'" or "python3"
 
 
 hooks_payload = {
