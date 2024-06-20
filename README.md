@@ -2,11 +2,14 @@
 
 <p align="center">
     <a href="https://pypi.org/project/slack-cli-hooks/">
-        <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/slack-cli-hooks?style=flat-square"></a>
+        <img alt="Pypi - Badge" src="https://img.shields.io/badge/pypi-slack--cli--hooks-green"></a>
     <a href="https://pypi.org/project/slack-cli-hooks/">
-        <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/slack-cli-hooks.svg?style=flat-square"></a>
+        <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/slack-cli-hooks"></a>
     <a href="https://codecov.io/gh/slackapi/python-slack-hooks">
-        <img alt="Codecov" src="https://img.shields.io/codecov/c/gh/slackapi/python-slack-hooks?style=flat-square"></a>
+        <img alt="Codecov" src="https://img.shields.io/codecov/c/gh/slackapi/python-slack-hooks"></a>
+    <br>
+    <a href="https://pypi.org/project/slack-cli-hooks/">
+        <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/slack-cli-hooks.svg"></a>
 </p>
 
 This library defines the contract between the
