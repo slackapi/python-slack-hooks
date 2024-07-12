@@ -1,7 +1,7 @@
 import os
 
-from slack_sdk import WebClient
 from slack_bolt.app import App
+from slack_sdk import WebClient
 from utils import get_test_socket_mode_handler, wait_for_test_socket_connection
 
 web_client = WebClient(base_url="http://localhost:8888", token=os.environ.get("SLACK_BOT_TOKEN"))

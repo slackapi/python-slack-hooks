@@ -2,8 +2,8 @@ from unittest.mock import patch
 from urllib import request
 
 import pytest
-
 from packaging.version import Version
+
 from slack_cli_hooks.error import PypiError
 from slack_cli_hooks.hooks import check_update
 from slack_cli_hooks.hooks.check_update import (

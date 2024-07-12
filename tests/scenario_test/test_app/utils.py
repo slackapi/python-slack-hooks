@@ -1,6 +1,6 @@
 import time
-
 from typing import Optional
+
 from slack_bolt.adapter.socket_mode.builtin import SocketModeHandler
 from slack_bolt.app.app import App
 

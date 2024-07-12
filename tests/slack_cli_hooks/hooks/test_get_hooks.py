@@ -1,4 +1,5 @@
 import re
+
 from slack_cli_hooks.hooks.get_hooks import hooks_payload
 
 
@@ -15,7 +16,7 @@ class TestGetHooks:
         config = hooks_payload["config"]
 
         assert config["sdk-managed-connection-enabled"] is True
-        assert config["protocol-version"] == ["message-boundaries"]
+        assert config["protocol-version"] == ["message-boundaries", "default"]
 
     def test_hooks_watch_regex(self):
         config = hooks_payload["config"]

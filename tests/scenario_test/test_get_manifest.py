@@ -3,7 +3,9 @@ import os
 import runpy
 import sys
 from unittest.mock import patch
+
 import pytest
+
 from slack_cli_hooks.error import CliError
 from slack_cli_hooks.hooks import get_manifest
 

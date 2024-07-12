@@ -20,7 +20,6 @@ class TestGetHooks:
         runpy.run_module(get_hooks.__name__, run_name="__main__", alter_sys=False)
 
         out, err = capsys.readouterr()
-
         json_response = json.loads(out)
         assert err == ""
         assert "hooks" in json_response

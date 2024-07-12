@@ -2,10 +2,7 @@
 import json
 import platform
 
-from slack_cli_hooks.protocol import (
-    Protocol,
-    build_protocol,
-)
+from slack_cli_hooks.protocol import Protocol, build_protocol
 
 PROTOCOL: Protocol
 

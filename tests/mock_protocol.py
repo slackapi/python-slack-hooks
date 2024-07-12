@@ -1,4 +1,5 @@
 from unittest.mock import Mock
+
 from slack_cli_hooks.protocol.protocol import Protocol
 
 

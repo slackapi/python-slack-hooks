@@ -1,10 +1,11 @@
+import os
 import runpy
 import sys
 from unittest.mock import patch
-import pytest
-import os
-from slack_cli_hooks.error import CliError
 
+import pytest
+
+from slack_cli_hooks.error import CliError
 from slack_cli_hooks.hooks import start
 from tests.mock_socket_mode_server import start_socket_mode_server, stop_socket_mode_server
 from tests.mock_web_api_server import cleanup_mock_web_api_server, setup_mock_web_api_server

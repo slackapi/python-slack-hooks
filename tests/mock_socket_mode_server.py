@@ -1,9 +1,10 @@
 import json
 import threading
 import time
-from urllib.request import urlopen
-from urllib.error import URLError
 from unittest import TestCase
+from urllib.error import URLError
+from urllib.request import urlopen
+
 from flask import Flask
 from gevent import pywsgi
 from geventwebsocket.handler import WebSocketHandler

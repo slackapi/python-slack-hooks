@@ -1,13 +1,12 @@
 import argparse
 import sys
 from typing import List
+
+from .default_protocol import DefaultProtocol
 from .message_boundary_protocol import MessageBoundaryProtocol
 from .protocol import Protocol
 
-__all__ = [
-    "MessageBoundaryProtocol",
-    "Protocol",
-]
+__all__ = ["DefaultProtocol" "MessageBoundaryProtocol", "Protocol"]
 
 
 def build_protocol(argv: List[str] = sys.argv[1:]) -> Protocol:
@@ -19,4 +18,4 @@ def build_protocol(argv: List[str] = sys.argv[1:]) -> Protocol:
 
     if args.protocol == MessageBoundaryProtocol.name:
         return MessageBoundaryProtocol(boundary=args.boundary)
-    raise NotImplementedError
+    return DefaultProtocol()

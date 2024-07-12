@@ -1,6 +1,7 @@
 from unittest import mock
 
 import pytest
+
 from slack_cli_hooks.error import CliError
 from slack_cli_hooks.hooks.get_manifest import filter_directories, find_file_path
 
