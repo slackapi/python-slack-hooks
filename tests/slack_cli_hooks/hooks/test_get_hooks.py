@@ -15,7 +15,7 @@ class TestGetHooks:
         config = hooks_payload["config"]
 
         assert config["sdk-managed-connection-enabled"] is True
-        assert config["protocol-version"] == ["message-boundaries", "default"]
+        assert config["protocol-version"] == ["message-boundaries"]
 
     def test_hooks_watch_regex(self):
         config = hooks_payload["config"]

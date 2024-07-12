@@ -1,4 +1,6 @@
 import runpy
+import sys
+from unittest.mock import patch
 import pytest
 import os
 from slack_cli_hooks.error import CliError
@@ -18,9 +20,15 @@ class TestStart:
         os.environ["SLACK_APP_TOKEN"] = "xapp-A111-222-xyz"
         setup_mock_web_api_server(self)
         start_socket_mode_server(self, 3012)
+
+        protocol_args = [start.__name__, "--protocol", "message-boundaries", "--boundary", ""]
+        self.argv_mock = patch.object(sys, "argv", protocol_args)
+        self.argv_mock.start()
+
         self.cwd = os.getcwd()
 
     def teardown_method(self):
+        self.argv_mock.stop()
         os.chdir(self.cwd)
         os.environ.pop("SLACK_BOT_TOKEN", None)
         os.environ.pop("SLACK_APP_TOKEN", None)

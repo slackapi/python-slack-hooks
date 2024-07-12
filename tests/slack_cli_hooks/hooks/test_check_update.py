@@ -14,7 +14,7 @@ from slack_cli_hooks.hooks.check_update import (
     pypi_get,
     pypi_get_json,
 )
-from slack_cli_hooks.protocol.default_protocol import DefaultProtocol
+from tests.mock_protocol import MockProtocol
 from tests.utils import build_fake_dependency, build_fake_pypi_urlopen
 
 
@@ -22,7 +22,7 @@ class TestRelease:
     test_project = "test_proj"
 
     def setup_method(self):
-        check_update.PROTOCOL = DefaultProtocol()
+        check_update.PROTOCOL = MockProtocol()
 
     def test_release_with_same_version(self):
         release = Release(name=self.test_project, current=Version("0.0.0"), latest=Version("0.0.0"))
@@ -57,7 +57,7 @@ class TestRelease:
 
 class TestCheckUpdate:
     def setup_method(self):
-        check_update.PROTOCOL = DefaultProtocol()
+        check_update.PROTOCOL = MockProtocol()
 
     def test_pypi_get(self):
         test_project = "test_proj"

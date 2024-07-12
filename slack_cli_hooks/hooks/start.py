@@ -40,5 +40,5 @@ def start(working_directory: str) -> None:
 
 
 if __name__ == "__main__":
-    PROTOCOL = build_protocol()
+    PROTOCOL = build_protocol(argv=sys.argv[1:])
     start(os.getcwd())

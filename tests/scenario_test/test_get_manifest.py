@@ -1,17 +1,24 @@
 import json
 import os
 import runpy
+import sys
+from unittest.mock import patch
 import pytest
 from slack_cli_hooks.error import CliError
 from slack_cli_hooks.hooks import get_manifest
 
 
 class TestGetManifest:
+
     def setup_method(self):
+        protocol_args = [get_manifest.__name__, "--protocol", "message-boundaries", "--boundary", ""]
+        self.argv_mock = patch.object(sys, "argv", protocol_args)
+        self.argv_mock.start()
         self.cwd = os.getcwd()
 
     def teardown_method(self):
         os.chdir(self.cwd)
+        self.argv_mock.stop()
 
     def test_get_manifest_script(self, capsys):
         working_directory = "tests/scenario_test/test_app"

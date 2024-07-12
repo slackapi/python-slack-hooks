@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import re
+import sys
 from typing import List
 
 from slack_cli_hooks.error import CliError
@@ -46,5 +47,5 @@ def get_manifest(working_directory: str) -> str:
 
 
 if __name__ == "__main__":
-    PROTOCOL = build_protocol()
+    PROTOCOL = build_protocol(argv=sys.argv[1:])
     PROTOCOL.respond(get_manifest(os.getcwd()))

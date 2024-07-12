@@ -4,7 +4,6 @@ import sys
 from slack_cli_hooks.protocol import (
     Protocol,
     MessageBoundaryProtocol,
-    DefaultProtocol,
     build_protocol,
 )
 
@@ -23,12 +22,12 @@ hooks_payload = {
     },
     "config": {
         "watch": {"filter-regex": "(^manifest\\.json$)", "paths": ["."]},
-        "protocol-version": [MessageBoundaryProtocol.name, DefaultProtocol.name],
+        "protocol-version": [MessageBoundaryProtocol.name],
         "sdk-managed-connection-enabled": True,
     },
     "runtime": "python",
 }
 
 if __name__ == "__main__":
-    PROTOCOL = build_protocol()
+    PROTOCOL = build_protocol(argv=sys.argv[1:])
     PROTOCOL.respond(json.dumps(hooks_payload))
