@@ -21,8 +21,8 @@ class TestStart:
         setup_mock_web_api_server(self)
         start_socket_mode_server(self, 3012)
 
-        protocol_args = [start.__name__, "--protocol", "message-boundaries", "--boundary", ""]
-        self.argv_mock = patch.object(sys, "argv", protocol_args)
+        cli_args = [start.__name__, "--protocol", "message-boundaries", "--boundary", ""]
+        self.argv_mock = patch.object(sys, "argv", cli_args)
         self.argv_mock.start()
 
         self.cwd = os.getcwd()
