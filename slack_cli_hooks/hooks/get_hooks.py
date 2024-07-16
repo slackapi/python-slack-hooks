@@ -26,5 +26,5 @@ hooks_payload = {
 }
 
 if __name__ == "__main__":
-    PROTOCOL = build_protocol(argv=sys.argv[1:])
+    PROTOCOL = build_protocol(argv=sys.argv)
     PROTOCOL.respond(json.dumps(hooks_payload))

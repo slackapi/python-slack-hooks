@@ -47,5 +47,5 @@ def get_manifest(working_directory: str) -> str:
 
 
 if __name__ == "__main__":
-    PROTOCOL = build_protocol(argv=sys.argv[1:])
+    PROTOCOL = build_protocol(argv=sys.argv)
     PROTOCOL.respond(get_manifest(os.getcwd()))

@@ -17,7 +17,7 @@ class TestGetHooks:
         self.argv_mock.stop()
 
     def test_get_manifest(self, capsys):
-        runpy.run_module(get_hooks.__name__, run_name="__main__", alter_sys=False)
+        runpy.run_module(get_hooks.__name__, run_name="__main__")
 
         out, err = capsys.readouterr()
         json_response = json.loads(out)
