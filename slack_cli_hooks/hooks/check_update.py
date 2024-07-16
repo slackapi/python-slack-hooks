@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import json
 from http.client import HTTPResponse
+import sys
 from types import ModuleType
 from typing import Any, Dict, List, Optional
 from urllib import request
@@ -99,5 +100,5 @@ def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> Dict[str, Any
 
 
 if __name__ == "__main__":
-    PROTOCOL = build_protocol()
+    PROTOCOL = build_protocol(argv=sys.argv)
     PROTOCOL.respond(json.dumps(build_output()))

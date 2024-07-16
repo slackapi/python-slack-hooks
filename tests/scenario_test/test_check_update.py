@@ -3,13 +3,13 @@ from urllib import request
 
 from slack_cli_hooks.hooks import check_update
 from slack_cli_hooks.hooks.check_update import build_output
-from slack_cli_hooks.protocol.default_protocol import DefaultProtocol
+from tests.mock_protocol import MockProtocol
 from tests.utils import build_fake_dependency, build_fake_pypi_urlopen
 
 
 class TestGetManifest:
     def setup_method(self):
-        check_update.PROTOCOL = DefaultProtocol()
+        check_update.PROTOCOL = MockProtocol()
 
     def test_build_output(self):
         test_project = "test_proj"

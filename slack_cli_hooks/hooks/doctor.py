@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 import json
 import platform
+import sys
 
-from slack_cli_hooks.protocol import (
-    Protocol,
-    build_protocol,
-)
+from slack_cli_hooks.protocol import Protocol, build_protocol
 
 PROTOCOL: Protocol
 
@@ -28,5 +26,5 @@ doctor_payload = {
 }
 
 if __name__ == "__main__":
-    PROTOCOL = build_protocol()
+    PROTOCOL = build_protocol(argv=sys.argv)
     PROTOCOL.respond(json.dumps(doctor_payload))

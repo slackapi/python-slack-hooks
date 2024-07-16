@@ -5,7 +5,7 @@ from http import HTTPStatus
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from typing import Type
 from unittest import TestCase
-from urllib.parse import urlparse, ParseResult
+from urllib.parse import ParseResult, urlparse
 
 
 class MockHandler(SimpleHTTPRequestHandler):
