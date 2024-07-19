@@ -27,9 +27,6 @@ class TestStart:
         self.argv_mock.start()
 
         self.cwd = os.getcwd()
-        # Prevent unpredictable behavior from import order mismatch
-        if start.__name__ in sys.modules:
-            del sys.modules[start.__name__]
 
     def teardown_method(self):
         self.argv_mock.stop()

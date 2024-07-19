@@ -12,9 +12,6 @@ class TestGetHooks:
         cli_args = [get_hooks.__name__, "--protocol", "message-boundaries", "--boundary", ""]
         self.argv_mock = patch.object(sys, "argv", cli_args)
         self.argv_mock.start()
-        # Prevent unpredictable behavior from import order mismatch
-        if get_hooks.__name__ in sys.modules:
-            del sys.modules[get_hooks.__name__]
 
     def teardown_method(self):
         self.argv_mock.stop()
