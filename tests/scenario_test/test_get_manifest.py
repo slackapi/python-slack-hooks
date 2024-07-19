@@ -17,6 +17,9 @@ class TestGetManifest:
         self.argv_mock = patch.object(sys, "argv", cli_args)
         self.argv_mock.start()
         self.cwd = os.getcwd()
+        # Prevent unpredictable behavior from import order mismatch
+        if get_manifest.__name__ in sys.modules:
+            del sys.modules[get_manifest.__name__]
 
     def teardown_method(self):
         os.chdir(self.cwd)
