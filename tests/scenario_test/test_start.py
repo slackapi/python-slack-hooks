@@ -22,14 +22,11 @@ class TestStart:
         setup_mock_web_api_server(self)
         start_socket_mode_server(self, 3012)
 
-        cli_args = [start.__name__, "--protocol", "message-boundaries", "--boundary", ""]
+        cli_args = [start.__file__, "--protocol", "message-boundaries", "--boundary", ""]
         self.argv_mock = patch.object(sys, "argv", cli_args)
         self.argv_mock.start()
 
         self.cwd = os.getcwd()
-        # Prevent unpredictable behavior from import order mismatch
-        if start.__name__ in sys.modules:
-            del sys.modules[start.__name__]
 
     def teardown_method(self):
         self.argv_mock.stop()
@@ -44,7 +41,7 @@ class TestStart:
     def test_start_script(self, capsys, caplog):
         os.chdir(self.working_directory)
 
-        runpy.run_module(start.__name__, run_name="__main__")
+        runpy.run_path(start.__file__, run_name="__main__")
 
         captured_sys = capsys.readouterr()
 
@@ -55,7 +52,7 @@ class TestStart:
         os.environ["SLACK_APP_PATH"] = "my_app.py"
         os.chdir(self.working_directory)
 
-        runpy.run_module(start.__name__, run_name="__main__")
+        runpy.run_path(start.__file__, run_name="__main__")
 
         captured_sys = capsys.readouterr()
 
@@ -67,6 +64,6 @@ class TestStart:
         os.chdir(working_directory)
 
         with pytest.raises(CliError) as e:
-            runpy.run_module(start.__name__, run_name="__main__")
+            runpy.run_path(start.__file__, run_name="__main__")
 
         assert "Could not find app.py file" in str(e.value)

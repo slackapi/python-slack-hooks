@@ -13,13 +13,10 @@ from slack_cli_hooks.hooks import get_manifest
 class TestGetManifest:
 
     def setup_method(self):
-        cli_args = [get_manifest.__name__, "--protocol", "message-boundaries", "--boundary", ""]
+        cli_args = [get_manifest.__file__, "--protocol", "message-boundaries", "--boundary", ""]
         self.argv_mock = patch.object(sys, "argv", cli_args)
         self.argv_mock.start()
         self.cwd = os.getcwd()
-        # Prevent unpredictable behavior from import order mismatch
-        if get_manifest.__name__ in sys.modules:
-            del sys.modules[get_manifest.__name__]
 
     def teardown_method(self):
         os.chdir(self.cwd)
@@ -29,7 +26,7 @@ class TestGetManifest:
         working_directory = "tests/scenario_test/test_app"
         os.chdir(working_directory)
 
-        runpy.run_module(get_manifest.__name__, run_name="__main__")
+        runpy.run_path(get_manifest.__file__, run_name="__main__")
 
         out, err = capsys.readouterr()
         assert err == ""
@@ -40,6 +37,6 @@ class TestGetManifest:
         os.chdir(working_directory)
 
         with pytest.raises(CliError) as e:
-            runpy.run_module(get_manifest.__name__, run_name="__main__")
+            runpy.run_path(get_manifest.__file__, run_name="__main__")
 
         assert str(e.value) == "Could not find a manifest.json file"
