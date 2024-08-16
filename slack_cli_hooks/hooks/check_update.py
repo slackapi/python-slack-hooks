@@ -3,7 +3,7 @@ import json
 from http.client import HTTPResponse
 import sys
 from types import ModuleType
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TypedDict
 from urllib import request
 
 import slack_bolt
@@ -17,6 +17,13 @@ from slack_cli_hooks.protocol import Protocol, build_protocol
 PROTOCOL: Protocol
 
 DEPENDENCIES: List[ModuleType] = [slack_cli_hooks, slack_bolt, slack_sdk]
+
+ErrorType = TypedDict("ErrorType", {"message": str})
+OutputType = TypedDict(
+    "OutputType",
+    {"name": str, "url": str, "releases": List[Dict[str, Any]], "error": ErrorType},
+    total=False,
+)
 
 
 class Release:
@@ -83,8 +90,8 @@ def build_release(dependency: ModuleType) -> Release:
         return Release(name=name, error={"message": str(e)})
 
 
-def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> Dict[str, Any]:
-    output = {"name": "Slack Bolt", "url": "https://api.slack.com/automation/changelog", "releases": []}
+def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> OutputType:
+    output: OutputType = {"name": "Slack Bolt", "url": "https://api.slack.com/automation/changelog", "releases": list()}
     errors = []
 
     for dep in dependencies:

@@ -109,8 +109,9 @@ ENV/
 env.bak/
 venv.bak/
 
-# pytype static type analyzer
+# static type analyzer
 .pytype/
+.mypy_cache/
 
 # Cython debug symbols
 cython_debug/
