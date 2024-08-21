@@ -78,10 +78,10 @@ To lint this project
 ./scripts/lint.sh
 ```
 
-This project uses [pytype](https://google.github.io/pytype/) to check and infers types for your Python code.
+This project uses [mypy](https://mypy.readthedocs.io/en/stable/index.html) to check and infers types for your Python code.
 
 ```zsh
-./scripts/run_pytype.sh
+./scripts/run_mypy.sh
 ```
 
 #### Develop Locally

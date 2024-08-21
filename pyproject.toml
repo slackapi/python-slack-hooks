@@ -48,3 +48,8 @@ log_file = "logs/pytest.log"
 log_file_level = "DEBUG"
 log_format = "%(asctime)s %(levelname)s %(message)s"
 log_date_format = "%Y-%m-%d %H:%M:%S"
+
+[tool.mypy]
+files = "slack_cli_hooks/"
+force_union_syntax = true
+warn_unused_ignores = true

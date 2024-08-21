@@ -6,4 +6,4 @@ set_prj_as_cwd
 
 install_development_requirements
 
-pytype slack_cli_hooks/
+mypy --config-file pyproject.toml

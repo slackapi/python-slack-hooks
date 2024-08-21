@@ -16,5 +16,5 @@ then
     pytest -vv $1
 else
     pytest && \
-    pytype slack_cli_hooks/
+    mypy --config-file pyproject.toml
 fi
