@@ -1,6 +1,6 @@
 # pip install -r requirements/testing.txt
 pytest>=6.2.5,<9
-pytest-cov>=3,<6
+pytest-cov>=3,<7
 Flask>=2.0.3,<4 
 gevent>=22.10.2,<25
 gevent-websocket>=0.10.1,<1
