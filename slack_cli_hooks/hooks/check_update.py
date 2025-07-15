@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import json
-from http.client import HTTPResponse
 import sys
+from http.client import HTTPResponse
 from types import ModuleType
 from typing import Any, Dict, List, Optional, TypedDict
 from urllib import request
@@ -91,7 +91,7 @@ def build_release(dependency: ModuleType) -> Release:
 
 
 def build_output(dependencies: List[ModuleType] = DEPENDENCIES) -> OutputType:
-    output: OutputType = {"name": "Slack Bolt", "url": "https://api.slack.com/automation/changelog", "releases": []}
+    output: OutputType = {"name": "Slack Bolt", "url": "https://docs.slack.dev/changelog", "releases": []}
     errors = []
 
     for dep in dependencies:
