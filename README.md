@@ -13,12 +13,12 @@
 </p>
 
 This library defines the contract between the
-[Slack CLI](https://api.slack.com/automation/cli/install) and
+[Slack CLI](https://tools.slack.dev/slack-cli/) and
 [Bolt for Python](https://slack.dev/bolt-python/).
 
 ## Overview
 
-This library enables inter-process communication between the [Slack CLI](https://api.slack.com/automation/cli/install) and applications built with Bolt for Python.
+This library enables inter-process communication between the [Slack CLI](https://tools.slack.dev/slack-cli/) and applications built with Bolt for Python.
 
 When used together, the CLI delegates various tasks to the Bolt application by invoking processes ("hooks") and then making use of the responses provided by each hook's `stdout`.
 

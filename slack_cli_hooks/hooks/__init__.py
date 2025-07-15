@@ -1,2 +1,1 @@
-"""Slack CLI contract implementation for Bolt.
-"""
+"""Slack CLI contract implementation for Bolt."""

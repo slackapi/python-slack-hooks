@@ -145,6 +145,6 @@ class TestCheckUpdate:
 
         assert actual == {
             "name": "Slack Bolt",
-            "url": "https://api.slack.com/automation/changelog",
+            "url": "https://docs.slack.dev/changelog",
             "releases": [],
         }
