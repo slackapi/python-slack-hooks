@@ -89,6 +89,7 @@ This project uses [mypy](https://mypy.readthedocs.io/en/stable/index.html) to ch
 If you want to test the package locally you can.
 
 1. Build the package locally
+
    - Run
 
      ```zsh
@@ -96,7 +97,9 @@ If you want to test the package locally you can.
      ```
 
    - This will create a `.whl` file in the `./dist` folder
+
 2. Use the built package
+
    - Example `/dist/slack_cli_hooks-1.2.3-py2.py3-none-any.whl` was created
    - From anywhere on your machine you can install this package to a project with
 
@@ -130,7 +133,7 @@ landed, then [run the tests](#run-all-the-unit-tests).
    - Bump the version number in adherence to
      [Semantic Versioning](http://semver.org/) and
      [Developmental Release](https://peps.python.org/pep-0440/#developmental-releases)
-     in `slack_bolt/version.py`
+     in `slack_cli_hooks/version.py`
      - Example the current version is `1.2.3` a proper development bump would be
        `1.2.3.dev0`
      - `.dev` will indicate to pip that this is a
@@ -147,7 +150,7 @@ landed, then [run the tests](#run-all-the-unit-tests).
    [Releases page](https://github.com/slackapi/python-slack-hooks/releases) by
    clicking the "Draft a new release" button.
 3. Input the version manually into the "Choose a tag" input. You must use the
-   same version found in `slack_bolt/version.py`
+   same version found in `slack_cli_hooks/version.py`
 
    - After you input the new version, click the "Create a new tag: x.x.x on
      publish" button. This won't create your tag immediately.
@@ -183,18 +186,19 @@ the last tag is in a releasable state! At a minimum,
 
 1. Create the commit for the release
    - Bump the version number in adherence to
-     [Semantic Versioning](http://semver.org/) in `slack_bolt/version.py`
+     [Semantic Versioning](http://semver.org/) in `slack_cli_hooks/version.py`
    - Commit with a message including the new version number. For example `1.2.3`
      & Push the commit to a branch and create a PR to sanity check.
      - `git checkout -b 1.2.3-release`
-     - `git commit -m 'version 1.2.3'`
+     - `git commit -m 'chore(release): tag version 1.2.3'`
      - `git push {your-fork} 1.2.3-release`
+   - Add relevant labels to the PR and add the PR to a GitHub Milestone.
    - Merge in release PR after getting an approval from at least one maintainer.
 2. Create a new GitHub Release from the
    [Releases page](https://github.com/slackapi/python-slack-hooks/releases) by
    clicking the "Draft a new release" button.
 3. Input the version manually into the "Choose a tag" input. You must use the
-   same version found in `slack_bolt/version.py`
+   same version found in `slack_cli_hooks/version.py`
 
    - After you input the version, click the "Create a new tag: x.x.x on publish"
      button. This won't create your tag immediately.
@@ -216,9 +220,10 @@ the last tag is in a releasable state! At a minimum,
 7. Publish the release by clicking the "Publish release" button!
 8. After a few minutes, the corresponding version will be available on
    <https://pypi.org/project/slack-cli-hooks/>.
-9. (Slack Internal) Communicate the release internally
-   - Include a link to the GitHub release
-10. (Slack Internal) Tweet by @SlackAPI
+9. Close the current GitHub Milestone and create one for the next minor version.
+10. (Slack Internal) Communicate the release internally
+    - Include a link to the GitHub release
+11. (Slack Internal) Tweet by @SlackAPI
     - Not necessary for patch updates, might be needed for minor updates,
       definitely needed for major updates. Include a link to the GitHub release
 
