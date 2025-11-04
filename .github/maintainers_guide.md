@@ -113,13 +113,22 @@ If you want to test the package locally you can.
 
 [TestPyPI](https://test.pypi.org/) is a separate instance of the Python Package
 Index that allows you to try distribution tools and processes without affecting
-the real index. This is useful with changes that relate to the package itself,
-example the contents of the `pyproject.toml`
+the real index. This is particularly useful when making changes related to the
+package configuration itself, for example, modifications to the `pyproject.toml` file.
 
-The following can be used to deploy this project on <https://test.pypi.org/>.
+You can deploy this project to TestPyPI using GitHub Actions.
 
-```zsh
+To deploy using GitHub Actions:
 
+1. Push your changes to a branch or tag
+2. Navigate to <https://github.com/slackapi/python-slack-hooks/actions/workflows/pypi-release.yml>
+3. Click on "Run workflow"
+4. Select your branch or tag from the dropdown
+5. Click "Run workflow" to build and deploy your branch to TestPyPI
+
+Alternatively, you can deploy from your local machine with:
+
+```sh
 ./scripts/deploy_to_test_pypi.sh
 ```
 
