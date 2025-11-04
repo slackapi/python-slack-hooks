@@ -42,7 +42,9 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - release-build
-    if: github.event_name == 'workflow_dispatch' && !github.event.inputs.dry_run
+    # Run this job for workflow_dispatch events when dry_run input is not 'true'
+    # Note: The comparison is against a string value 'true' since GitHub Actions inputs are strings
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run != 'true'
     environment:
       name: testpypi
     permissions:
