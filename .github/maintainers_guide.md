@@ -10,14 +10,14 @@ this project. If you use this package within your own software as is but don't p
 
 We recommend using [pyenv](https://github.com/pyenv/pyenv) for Python runtime management. If you use macOS, follow the following steps:
 
-```zsh
+```sh
 brew update
 brew install pyenv
 ```
 
 Install necessary Python runtimes for development/testing. You can rely on GitHub Actions for testing with various major versions.
 
-```zsh
+```sh
 pyenv install -l | grep -v "-e[conda|stackless|pypy]"
 
 pyenv install 3.9.18 # select the latest patch version
@@ -34,7 +34,7 @@ pyenv rehash
 
 Then, you can create a new Virtual Environment this way:
 
-```zsh
+```sh
 python -m venv env_3.9.18
 source env_3.9.18/bin/activate
 ```
@@ -49,38 +49,38 @@ If you make some changes to this project, please write corresponding unit tests 
 
 If this is your first time to run tests, although it may take a bit longer, running the following script is the easiest.
 
-```zsh
+```sh
 ./scripts/install_and_run_tests.sh
 ```
 
 To simply install all the development dependencies for this project.
 
-```zsh
+```sh
 ./scripts/install.sh
 ```
 
 Once you installed all the required dependencies, you can use the following.
 
-```zsh
+```sh
 ./scripts/run_tests.sh
 ./scripts/run_tests.sh tests/scenario_test/test_get_hooks.py
 ```
 
 To format this project
 
-```zsh
+```sh
 ./scripts/format.sh
 ```
 
 To lint this project
 
-```zsh
+```sh
 ./scripts/lint.sh
 ```
 
 This project uses [mypy](https://mypy.readthedocs.io/en/stable/index.html) to check and infers types for your Python code.
 
-```zsh
+```sh
 ./scripts/run_mypy.sh
 ```
 
@@ -92,7 +92,7 @@ If you want to test the package locally you can.
 
    - Run
 
-     ```zsh
+     ```sh
      scripts/build_pypi_package.sh
      ```
 
@@ -103,7 +103,7 @@ If you want to test the package locally you can.
    - Example `/dist/slack_cli_hooks-1.2.3-py2.py3-none-any.whl` was created
    - From anywhere on your machine you can install this package to a project with
 
-     ```zsh
+     ```sh
      pip install <project path>/dist/slack_cli_hooks-1.2.3-py2.py3-none-any.whl
      ```
 
