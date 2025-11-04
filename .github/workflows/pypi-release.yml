@@ -10,7 +10,6 @@ on:
         description: "Dry run (build only, do not publish)"
         required: false
         type: boolean
-        default: false
 
 jobs:
   release-build:
