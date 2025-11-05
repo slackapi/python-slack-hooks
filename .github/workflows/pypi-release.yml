@@ -81,7 +81,7 @@ jobs:
           name: release-dist
           path: dist/
 
-      - name: Publish release distributions to test.pypi.org
+      - name: Publish release distributions to pypi.org
         # Using OIDC for PyPI publishing (no API tokens needed)
         # See: https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-pypi
         uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
