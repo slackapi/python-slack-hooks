@@ -18,9 +18,17 @@ hooks_payload = {
         "doctor": f"{EXEC} -m slack_cli_hooks.hooks.doctor",
     },
     "config": {
-        "watch": {"filter-regex": "(^manifest\\.json$)", "paths": ["."]},
         "protocol-version": [MessageBoundaryProtocol.name, DefaultProtocol.name],
         "sdk-managed-connection-enabled": True,
+        "watch": {
+            "app": {
+                "filter-regex": "\\.py$",
+                "paths": ["."],
+            },
+            "manifest": {
+                "paths": ["manifest.json"],
+            },
+        },
     },
     "runtime": "python",
 }

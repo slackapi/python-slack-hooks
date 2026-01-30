@@ -1,5 +1,3 @@
-import re
-
 from slack_cli_hooks.hooks.get_hooks import hooks_payload
 
 
@@ -18,13 +16,18 @@ class TestGetHooks:
         assert config["sdk-managed-connection-enabled"] is True
         assert config["protocol-version"] == ["message-boundaries", "default"]
 
-    def test_hooks_watch_regex(self):
+    def test_hooks_watch_app(self):
         config = hooks_payload["config"]
-
         assert config["watch"] is not None
+        assert config["watch"]["app"] is not None
+        assert config["watch"]["app"]["filter-regex"] == "\\.py$"
+        assert config["watch"]["app"]["paths"] == ["."]
 
-        filter_regex = config["watch"]["filter-regex"]
-        assert re.match(filter_regex, "manifest.json") is not None
+    def test_hooks_watch_manifest(self):
+        config = hooks_payload["config"]
+        assert config["watch"] is not None
+        assert config["watch"]["manifest"] is not None
+        assert config["watch"]["manifest"]["paths"] == ["manifest.json"]
 
     def test_hooks_runtime(self):
         runtime = hooks_payload["runtime"]
