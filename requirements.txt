@@ -1,2 +1,2 @@
 slack_bolt>=1.18.0,<2
-packaging<26
+packaging<27
