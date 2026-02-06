@@ -1,9 +1,11 @@
 #!/bin/bash
+# ./scripts/run_mypy.sh [--no-install]
 
-source ./scripts/_utils.sh
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-set_prj_as_cwd
-
-install_development_requirements
+if [[ "$1" != "--no-install" ]]; then
+    ./scripts/install.sh
+fi
 
 mypy --config-file pyproject.toml

@@ -1,10 +1,13 @@
 #!/bin/bash
+# ./scripts/lint.sh [--no-install]
 
-source ./scripts/_utils.sh
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-set_prj_as_cwd
+if [[ "$1" != "--no-install" ]]; then
+    pip install -U pip
+    pip install -U -r requirements/format.txt
+fi
 
-pip install -U pip
-pip install -r requirements/format.txt
-
+black --check slack_cli_hooks/ tests/
 flake8 slack_cli_hooks/ && flake8 tests/

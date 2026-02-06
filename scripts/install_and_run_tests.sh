@@ -1,20 +1,21 @@
 #!/bin/bash
+# Run all the tests or a single test with installation
 # all: ./scripts/install_and_run_tests.sh
 # single: ./scripts/install_and_run_tests.sh tests/scenario_tests/test_app.py
 
+script_dir=$(dirname $0)
+cd ${script_dir}/..
+
 test_target="$1"
-source ./scripts/_utils.sh
 
-set_prj_as_cwd
-
-install_development_requirements
-
-format
+./scripts/install.sh
 
 if [[ $test_target != "" ]]
 then
-    pytest -vv $1
+    ./scripts/format.sh --no-install
+    pytest -vv $test_target
 else
-    pytest && \
-    mypy --config-file pyproject.toml
+    ./scripts/format.sh --no-install
+    ./scripts/lint.sh --no-install
+    pytest
 fi

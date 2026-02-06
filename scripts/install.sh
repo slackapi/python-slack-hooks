@@ -1,6 +1,10 @@
 #!/bin/bash
-source ./scripts/_utils.sh
 
-set_prj_as_cwd
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-install_development_requirements
+export PIP_REQUIRE_VIRTUALENV=1
+pip install -U pip
+pip install -e .
+pip install -r requirements/testing.txt
+pip install -r requirements/format.txt
