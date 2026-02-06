@@ -1,13 +1,9 @@
 #!/bin/bash
-# ./scripts/format.sh [--no-install]
+source ./scripts/_utils.sh
 
-script_dir=$(dirname "$0")
-cd "${script_dir}/.."
+set_prj_as_cwd
 
-if [[ "$1" != "--no-install" ]]; then
-    export PIP_REQUIRE_VIRTUALENV=1
-    pip install -U pip
-    pip install -U -r requirements/format.txt
-fi
+pip install -U pip
+pip install -r requirements/format.txt
 
-black slack_cli_hooks/ tests/
+format

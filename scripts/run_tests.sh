@@ -1,18 +1,17 @@
 #!/bin/bash
-# Run all the tests or a single test
 # all: ./scripts/run_tests.sh
 # single: ./scripts/run_tests.sh tests/scenario_tests/test_app.py
 
-script_dir=$(dirname "$0")
-cd "${script_dir}/.."
-
 test_target="$1"
+source ./scripts/_utils.sh
 
-./scripts/format.sh --no-install
+set_prj_as_cwd
 
-if [[ "$test_target" != "" ]]
+format
+
+if [[ $test_target != "" ]]
 then
-  pytest -vv "$test_target"
+  pytest -vv $1
 else
   pytest
 fi

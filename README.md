@@ -63,47 +63,6 @@ Below is an example `/slack.json` file that overrides the default `start`:
 }
 ```
 
-## Development Scripts
-
-### Quick Reference
-
-```bash
-# Run tests with installation and formatting
-./scripts/install_and_run_tests.sh
-
-# Run tests with formatting (no install)
-./scripts/run_tests.sh
-
-# Run single test file
-./scripts/run_tests.sh tests/scenario_tests/test_app.py
-
-# Format code
-./scripts/format.sh
-
-# Lint code (format check + flake8)
-./scripts/lint.sh
-
-# Type check
-./scripts/run_mypy.sh
-
-# Install dependencies
-./scripts/install.sh
-
-# Build package
-./scripts/build_pypi_package.sh
-```
-
-### Script Options
-
-Most scripts support `--no-install` flag to skip dependency installation:
-```bash
-./scripts/format.sh --no-install
-./scripts/lint.sh --no-install
-./scripts/run_mypy.sh --no-install
-```
-
-This is useful in CI or when dependencies are already installed.
-
 ## Contributing
 
 Contributions are always welcome! Please review the

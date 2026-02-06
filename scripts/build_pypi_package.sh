@@ -1,10 +1,8 @@
 #!/bin/bash
+source ./scripts/_utils.sh
 
-script_dir=$(dirname "$0")
-cd "${script_dir}/.."
+set_prj_as_cwd
 
-rm -rf dist/ build/ slack_cli_hooks.egg-info/
+clean_project
 
-pip install -r requirements/build.txt && \
-python -m build && \
-twine check dist/*
+build
