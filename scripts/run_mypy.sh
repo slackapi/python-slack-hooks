@@ -1,8 +1,8 @@
 #!/bin/bash
 # ./scripts/run_mypy.sh [--no-install]
 
-script_dir=$(dirname $0)
-cd ${script_dir}/..
+script_dir=$(dirname "$0")
+cd "${script_dir}/.."
 
 if [[ "$1" != "--no-install" ]]; then
     ./scripts/install.sh

@@ -1,8 +1,8 @@
 #!/bin/bash
 # ./scripts/format.sh [--no-install]
 
-script_dir=$(dirname $0)
-cd ${script_dir}/..
+script_dir=$(dirname "$0")
+cd "${script_dir}/.."
 
 if [[ "$1" != "--no-install" ]]; then
     export PIP_REQUIRE_VIRTUALENV=1
