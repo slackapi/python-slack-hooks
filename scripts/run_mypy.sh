@@ -1,9 +1,10 @@
 #!/bin/bash
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-source ./scripts/_utils.sh
-
-set_prj_as_cwd
-
-install_development_requirements
+# Install dependencies unless --no-install is specified
+if [[ "$1" != "--no-install" ]]; then
+    ./scripts/install.sh
+fi
 
 mypy --config-file pyproject.toml

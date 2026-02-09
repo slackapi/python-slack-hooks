@@ -1,9 +1,11 @@
 #!/bin/bash
-source ./scripts/_utils.sh
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-set_prj_as_cwd
+# Install dependencies unless --no-install is specified
+if [[ "$1" != "--no-install" ]]; then
+    pip install -U pip
+    pip install -r requirements/dev-tools.txt
+fi
 
-pip install -U pip
-pip install -r requirements/format.txt
-
-format
+black slack_cli_hooks/ tests/

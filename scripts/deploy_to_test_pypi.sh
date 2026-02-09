@@ -1,10 +1,8 @@
 #!/bin/bash
-source ./scripts/_utils.sh
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-set_prj_as_cwd
+./scripts/build_pypi_package.sh
 
-clean_project
-
-build
-
+# Upload to test PyPI
 twine upload --repository testpypi dist/*

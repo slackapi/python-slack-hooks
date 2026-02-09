@@ -2,19 +2,18 @@
 # all: ./scripts/install_and_run_tests.sh
 # single: ./scripts/install_and_run_tests.sh tests/scenario_tests/test_app.py
 
+script_dir=$(dirname $0)
+cd ${script_dir}/..
+
 test_target="$1"
-source ./scripts/_utils.sh
 
-set_prj_as_cwd
+./scripts/install.sh
+./scripts/format.sh --no-install
+./scripts/lint.sh --no-install
 
-install_development_requirements
-
-format
-
-if [[ $test_target != "" ]]
-then
-    pytest -vv $1
+# Run tests
+if [[ $test_target != "" ]]; then
+  pytest -vv $test_target
 else
-    pytest && \
-    mypy --config-file pyproject.toml
+  pytest && mypy --config-file pyproject.toml
 fi

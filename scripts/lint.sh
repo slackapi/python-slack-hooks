@@ -1,10 +1,11 @@
 #!/bin/bash
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-source ./scripts/_utils.sh
-
-set_prj_as_cwd
-
-pip install -U pip
-pip install -r requirements/format.txt
+# Install dependencies unless --no-install is specified
+if [[ "$1" != "--no-install" ]]; then
+    pip install -U pip
+    pip install -r requirements/dev-tools.txt
+fi
 
 flake8 slack_cli_hooks/ && flake8 tests/
