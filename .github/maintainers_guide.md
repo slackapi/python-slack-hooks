@@ -84,6 +84,13 @@ This project uses [mypy](https://mypy.readthedocs.io/en/stable/index.html) to ch
 ./scripts/run_mypy.sh
 ```
 
+To clean your virtual environment (useful when testing scripts in isolation):
+
+./scripts/uninstall_all.sh
+```
+
+> **Note**: Several scripts support a `--no-install` flag to prevent redundant dependency installation when scripts call other scripts internally.
+
 #### Develop Locally
 
 If you want to test the package locally you can.
