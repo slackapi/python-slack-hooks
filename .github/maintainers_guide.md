@@ -86,6 +86,7 @@ This project uses [mypy](https://mypy.readthedocs.io/en/stable/index.html) to ch
 
 To clean your virtual environment (useful when testing scripts in isolation):
 
+```sh
 ./scripts/uninstall_all.sh
 ```
 
