@@ -1,6 +1,8 @@
 #!/bin/bash
-source ./scripts/_utils.sh
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-set_prj_as_cwd
-
-install_development_requirements
+pip install -U pip
+pip install -e .
+pip install -r requirements/testing.txt
+pip install -r requirements/dev-tools.txt

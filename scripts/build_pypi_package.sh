@@ -1,8 +1,14 @@
 #!/bin/bash
-source ./scripts/_utils.sh
+script_dir=$(dirname $0)
+cd ${script_dir}/..
 
-set_prj_as_cwd
+# Clean previous builds
+rm -rf dist/ build/ slack_cli_hooks.egg-info/
 
-clean_project
+# Install build dependencies unless --no-install is specified
+if [[ "$1" != "--no-install" ]]; then
+    pip install -r requirements/build.txt
+fi
 
-build
+# Build package
+python -m build && twine check dist/*
