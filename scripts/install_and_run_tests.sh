@@ -15,5 +15,6 @@ test_target="$1"
 if [[ $test_target != "" ]]; then
   pytest -vv $test_target
 else
-  pytest && mypy --config-file pyproject.toml
+  pytest
+  ./scripts/run_mypy.sh --no-install
 fi
