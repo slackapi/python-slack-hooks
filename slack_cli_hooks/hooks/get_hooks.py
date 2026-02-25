@@ -7,7 +7,7 @@ from slack_cli_hooks.protocol import DefaultProtocol, MessageBoundaryProtocol, P
 PROTOCOL: Protocol
 
 # Wrap sys.executable in quotes to prevent execution failures if a white space is present in the absolute python path
-EXEC = f"'{sys.executable}'" or "python3"
+EXEC = f"'{sys.executable}'" if sys.executable else "python"
 
 
 hooks_payload = {

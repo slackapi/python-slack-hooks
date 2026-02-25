@@ -1,7 +1,22 @@
+import importlib
+import sys
+from unittest.mock import patch
+
+from slack_cli_hooks.hooks import get_hooks
 from slack_cli_hooks.hooks.get_hooks import hooks_payload
 
 
 class TestGetHooks:
+    def test_exec_uses_sys_executable(self):
+        with patch.object(sys, "executable", "/usr/bin/python3"):
+            importlib.reload(get_hooks)
+            assert get_hooks.EXEC == "'/usr/bin/python3'"
+
+    def test_exec_falls_back_to_python_when_sys_executable_is_empty(self):
+        with patch.object(sys, "executable", ""):
+            importlib.reload(get_hooks)
+            assert get_hooks.EXEC == "python"
+
     def test_hooks_payload(self):
         hooks = hooks_payload["hooks"]
 
