@@ -8,9 +8,14 @@ from slack_cli_hooks.hooks.get_hooks import hooks_payload
 
 class TestGetHooks:
     def test_exec_uses_sys_executable(self):
-        with patch.object(sys, "executable", "/usr/bin/python3"):
+        with patch.object(sys, "executable", "/usr/bin/python3"), patch.object(sys, "platform", "linux"):
             importlib.reload(get_hooks)
             assert get_hooks.EXEC == "'/usr/bin/python3'"
+
+    def test_exec_uses_call_operator_on_windows(self):
+        with patch.object(sys, "executable", "C:\\Python\\python.exe"), patch.object(sys, "platform", "win32"):
+            importlib.reload(get_hooks)
+            assert get_hooks.EXEC == "& 'C:\\Python\\python.exe'"
 
     def test_exec_falls_back_to_python_when_sys_executable_is_empty(self):
         with patch.object(sys, "executable", ""):
