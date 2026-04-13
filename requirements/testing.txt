@@ -2,5 +2,5 @@
 pytest>=6.2.5,<9
 pytest-cov>=3,<8
 Flask>=2.0.3,<4 
-gevent>=22.10.2,<26
+gevent>=22.10.2,<27
 gevent-websocket>=0.10.1,<1
