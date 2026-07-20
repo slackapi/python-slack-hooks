@@ -8,6 +8,10 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    ignore:
+      # Maintainers bump the minimum slack-bolt version manually so the project
+      # does not always require the latest release.
+      - dependency-name: "slack-bolt"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
