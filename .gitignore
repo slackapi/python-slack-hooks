@@ -124,6 +124,5 @@ cython_debug/
 .idea/
 
 # LLM
-.claude/
 .cursor/
 
