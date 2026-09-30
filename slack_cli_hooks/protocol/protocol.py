@@ -20,25 +20,25 @@ class Protocol(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def debug(self, msg: str, *args, **kwargs):
-        """Logs a message with level DEBUG"""
+        """Logs a message with level DEBUG."""
         raise NotImplementedError
 
     @abc.abstractmethod
     def info(self, msg: str, *args, **kwargs):
-        """Logs a message with level INFO"""
+        """Logs a message with level INFO."""
         raise NotImplementedError
 
     @abc.abstractmethod
     def warning(self, msg: str, *args, **kwargs):
-        """Logs a message with level WARNING"""
+        """Logs a message with level WARNING."""
         raise NotImplementedError
 
     @abc.abstractmethod
     def error(self, msg: str, *args, **kwargs):
-        """Logs a message with level ERROR on the root logger"""
+        """Logs a message with level ERROR on the root logger."""
         raise NotImplementedError
 
     @abc.abstractmethod
     def respond(self, data: str):
-        """Utility method for responding to CLI hook invocations"""
+        """Utility method for responding to CLI hook invocations."""
         raise NotImplementedError
