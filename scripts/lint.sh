@@ -8,4 +8,4 @@ if [[ "$1" != "--no-install" ]]; then
     pip install -r requirements/dev-tools.txt
 fi
 
-flake8 slack_cli_hooks/ && flake8 tests/
+ruff check slack_cli_hooks/ tests/ && ruff format --check slack_cli_hooks/ tests/

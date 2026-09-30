@@ -8,4 +8,5 @@ if [[ "$1" != "--no-install" ]]; then
     pip install -r requirements/dev-tools.txt
 fi
 
-black slack_cli_hooks/ tests/
+ruff check --fix slack_cli_hooks/ tests/
+ruff format slack_cli_hooks/ tests/

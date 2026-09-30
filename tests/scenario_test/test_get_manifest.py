@@ -11,7 +11,6 @@ from slack_cli_hooks.hooks import get_manifest
 
 
 class TestGetManifest:
-
     def setup_method(self):
         cli_args = [get_manifest.__file__, "--protocol", "message-boundaries", "--boundary", ""]
         self.argv_mock = patch.object(sys, "argv", cli_args)
