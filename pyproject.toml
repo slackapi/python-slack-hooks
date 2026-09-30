@@ -41,8 +41,11 @@ version = { attr = "slack_cli_hooks.version.__version__" }
 readme = { file = ["README.md"], content-type = "text/markdown" }
 dependencies = { file = ["requirements.txt"] }
 
-[tool.black]
+[tool.ruff]
 line-length = 125
+
+[tool.ruff.lint]
+select = ["E", "W", "F"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
