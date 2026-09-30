@@ -66,13 +66,13 @@ Once you installed all the required dependencies, you can use the following.
 ./scripts/run_tests.sh tests/scenario_test/test_get_hooks.py
 ```
 
-To format this project with [ruff](https://docs.astral.sh/ruff/)
+To format this project
 
 ```sh
 ./scripts/format.sh
 ```
 
-To lint this project (runs `ruff check` and `ruff format --check`)
+To lint this project
 
 ```sh
 ./scripts/lint.sh
