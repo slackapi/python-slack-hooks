@@ -4,27 +4,27 @@ from slack_cli_hooks.protocol.protocol import Protocol
 
 
 def debug(self, msg: str, *args, **kwargs):
-    """This is a mock"""
+    """This is a mock."""
     pass
 
 
 def info(self, msg: str, *args, **kwargs):
-    """This is a mock"""
+    """This is a mock."""
     pass
 
 
 def warning(self, msg: str, *args, **kwargs):
-    """This is a mock"""
+    """This is a mock."""
     pass
 
 
 def error(self, msg: str, *args, **kwargs):
-    """This is a mock"""
+    """This is a mock."""
     pass
 
 
 def respond(self, data: str):
-    """This is a mock"""
+    """This is a mock."""
     pass
 
 
