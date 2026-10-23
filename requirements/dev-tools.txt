@@ -1,7 +1,7 @@
 # pip install -r requirements/dev-tools.txt
 
 # ruff
-ruff==0.17.0
+ruff==0.17.1
 
 # mypy
 mypy>=2.4.0,<3
