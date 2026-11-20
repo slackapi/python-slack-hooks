@@ -57,8 +57,8 @@ Below is an example `/slack.json` file that overrides the default `start`:
 ```json
 {
   "hooks": {
-    "get-hooks": "python3 -m slack_cli_hooks.hooks.get_hooks",
-    "start": "python3 app.py"
+    "get-hooks": "python -m slack_cli_hooks.hooks.get_hooks",
+    "start": "python app.py"
   }
 }
 ```
